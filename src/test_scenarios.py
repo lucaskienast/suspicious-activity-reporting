@@ -23,10 +23,16 @@ import random
 
 # Import foundation components (will work after students implement them)
 try:
-    from foundation_sar import (
-        CustomerData, AccountData, TransactionData, CaseData,
-        RiskAnalystOutput, ComplianceOfficerOutput, ExplainabilityLogger
-    )
+    try:
+        from .foundation_sar import (
+            CustomerData, AccountData, TransactionData, CaseData,
+            RiskAnalystOutput, ComplianceOfficerOutput, ExplainabilityLogger
+        )
+    except ImportError:
+        from foundation_sar import (
+            CustomerData, AccountData, TransactionData, CaseData,
+            RiskAnalystOutput, ComplianceOfficerOutput, ExplainabilityLogger
+        )
     FOUNDATION_AVAILABLE = True
 except ImportError:
     FOUNDATION_AVAILABLE = False
@@ -78,7 +84,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_CHK_4567",
                         "amount": 9800.0,
                         "transaction_type": "Cash_Deposit",
-                        "date": "2024-01-15",
+                        "method": "Cash",
+                        "transaction_date": "2024-01-15",
                         "description": "Cash deposit",
                         "counterparty": None,
                         "location": "Springfield Branch"
@@ -88,7 +95,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_CHK_4567",
                         "amount": 9500.0,
                         "transaction_type": "Cash_Deposit",
-                        "date": "2024-01-16",
+                        "method": "Cash",
+                        "transaction_date": "2024-01-16",
                         "description": "Cash deposit",
                         "counterparty": None,
                         "location": "Downtown Branch"
@@ -98,7 +106,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_CHK_4567", 
                         "amount": 9900.0,
                         "transaction_type": "Cash_Deposit",
-                        "date": "2024-01-17",
+                        "method": "Cash",
+                        "transaction_date": "2024-01-17",
                         "description": "Cash deposit",
                         "counterparty": None,
                         "location": "Springfield Branch"
@@ -137,7 +146,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_9876",
                         "amount": 250000.0,
                         "transaction_type": "Wire_Transfer",
-                        "date": "2024-01-10",
+                        "method": "Wire",
+                        "transaction_date": "2024-01-10",
                         "description": "International wire transfer",
                         "counterparty": "Offshore Finance Ltd",
                         "location": "Cayman Islands"
@@ -147,7 +157,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_9876",
                         "amount": 180000.0,
                         "transaction_type": "Wire_Transfer",
-                        "date": "2024-01-12",
+                        "method": "Wire",
+                        "transaction_date": "2024-01-12",
                         "description": "Business payment",
                         "counterparty": "Global Investments SA",
                         "location": "Switzerland"
@@ -157,7 +168,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_9876",
                         "amount": 320000.0,
                         "transaction_type": "Wire_Transfer",
-                        "date": "2024-01-15",
+                        "method": "Wire",
+                        "transaction_date": "2024-01-15",
                         "description": "Investment transfer",
                         "counterparty": "Pacific Holdings",
                         "location": "Hong Kong"
@@ -196,7 +208,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_SAV_2468",
                         "amount": 45000.0,
                         "transaction_type": "ACH_Transfer",
-                        "date": "2024-01-20",
+                        "method": "ACH",
+                        "transaction_date": "2024-01-20",
                         "description": "Online transfer",
                         "counterparty": "Unknown Recipient",
                         "location": "Online"
@@ -206,7 +219,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_SAV_2468",
                         "amount": 30000.0,
                         "transaction_type": "Wire_Transfer",
-                        "date": "2024-01-21",
+                        "method": "Wire",
+                        "transaction_date": "2024-01-21",
                         "description": "Urgent wire transfer",
                         "counterparty": "Foreign Exchange Co",
                         "location": "Online"
@@ -245,7 +259,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_1357",
                         "amount": 95000.0,
                         "transaction_type": "Wire_Transfer",
-                        "date": "2024-01-25",
+                        "method": "Wire",
+                        "transaction_date": "2024-01-25",
                         "description": "Trade payment",
                         "counterparty": "Sanctioned Entity Corp",
                         "location": "Restricted Country"
@@ -284,7 +299,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_8642",
                         "amount": 3500.0,
                         "transaction_type": "Cash_Deposit",
-                        "date": "2024-01-15",
+                        "method": "Cash",
+                        "transaction_date": "2024-01-15",
                         "description": "Daily cash deposit",
                         "counterparty": None,
                         "location": "Local Branch"
@@ -294,7 +310,8 @@ class RiskAnalystScenarios:
                         "account_id": "ACC_BUS_8642",
                         "amount": 1200.0,
                         "transaction_type": "ACH_Transfer",
-                        "date": "2024-01-16",
+                        "method": "ACH",
+                        "transaction_date": "2024-01-16",
                         "description": "Supplier payment",
                         "counterparty": "Food Supplier Co",
                         "location": "ACH"
@@ -329,7 +346,8 @@ class RiskAnalystScenarios:
             customer=customer,
             accounts=[account],
             transactions=transactions,
-            created_at=datetime.now()
+            case_created_at=datetime.now().isoformat(),
+            data_sources={"scenario_source": f"synthetic_scenario_{scenario_name}"}
         )
         
         return case_data
@@ -443,6 +461,7 @@ class ComplianceOfficerScenarios:
         
         scenarios = {
             "structuring_narrative": {
+                "case_scenario": "structuring_classic",
                 "name": "Structuring SAR Narrative",
                 "description": "Generate compliant narrative for structuring activity",
                 "risk_analysis": {
@@ -458,6 +477,7 @@ class ComplianceOfficerScenarios:
             },
             
             "money_laundering_narrative": {
+                "case_scenario": "money_laundering_complex",
                 "name": "Money Laundering SAR Narrative",
                 "description": "Generate compliant narrative for money laundering activity",
                 "risk_analysis": {
@@ -473,6 +493,7 @@ class ComplianceOfficerScenarios:
             },
             
             "fraud_narrative": {
+                "case_scenario": "fraud_identity",
                 "name": "Fraud SAR Narrative", 
                 "description": "Generate compliant narrative for fraud activity",
                 "risk_analysis": {
@@ -488,6 +509,7 @@ class ComplianceOfficerScenarios:
             },
             
             "sanctions_narrative": {
+                "case_scenario": "sanctions_violation",
                 "name": "Sanctions Violation SAR Narrative",
                 "description": "Generate compliant narrative for sanctions violation",
                 "risk_analysis": {
@@ -586,34 +608,8 @@ class ComplianceOfficerScenarios:
             return {"error": "Could not create risk analysis data"}
         
         try:
-            # Create minimal case data for compliance testing
-            customer = CustomerData(
-                customer_id="TEST_CUSTOMER",
-                name="Test Customer",
-                date_of_birth="1980-01-01",
-                ssn_last_4="1234",
-                address="123 Test St",
-                customer_since="2020-01-01",
-                risk_rating="Medium"
-            )
-            
-            account = AccountData(
-                account_id="TEST_ACCOUNT",
-                customer_id="TEST_CUSTOMER",
-                account_type="Checking",
-                opening_date="2020-01-01",
-                current_balance=10000.0,
-                average_monthly_balance=8000.0,
-                status="Active"
-            )
-            
-            case_data = CaseData(
-                case_id="TEST_CASE",
-                customer=customer,
-                accounts=[account],
-                transactions=[],
-                created_at=datetime.now()
-            )
+            # Narratives are written about the matching risk scenario's case, so they have real facts to cite
+            case_data = RiskAnalystScenarios().create_case_data(scenario["case_scenario"])
             
             # Generate narrative
             start_time = datetime.now()
