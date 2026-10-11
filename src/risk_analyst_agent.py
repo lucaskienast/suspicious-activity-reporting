@@ -19,12 +19,9 @@ How it works:
    with the full reasoning trace and token usage.
 """
 
-import json
 import re
 import time
 import openai
-from collections import Counter
-from datetime import datetime
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 
@@ -48,13 +45,22 @@ except ImportError:
         TransactionData
     )
 
+try:
+    from .agent_utils import (
+        extract_json_object, parse_json_lenient, strip_json_blocks, truncate_text,
+        new_usage_counter, record_usage, summarize_case_activity, years_between
+    )
+except ImportError:
+    from agent_utils import (
+        extract_json_object, parse_json_lenient, strip_json_blocks, truncate_text,
+        new_usage_counter, record_usage, summarize_case_activity, years_between
+    )
+
 from pydantic import ValidationError
 
 # Load environment variables
 load_dotenv()
 
-CTR_THRESHOLD = 10_000              # Currency Transaction Report threshold (31 CFR 1010.311)
-NEAR_THRESHOLD_FLOOR = 9_000        # Lower bound of the "just under CTR" structuring band
 REASONING_MAX_CHARS = 500           # RiskAnalystOutput.reasoning limit
 
 VALID_CLASSIFICATIONS = ['Structuring', 'Sanctions', 'Fraud', 'Money_Laundering', 'Other']
@@ -201,7 +207,7 @@ class RiskAnalystAgent:
             {"role": "system", "content": self.system_prompt},
             {"role": "user", "content": self._format_case_for_prompt(case_data)}
         ]
-        call_usage: Dict[str, int] = {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0}
+        call_usage = new_usage_counter()
         last_error: Optional[Exception] = None
         reasoning_trace = ""
 
@@ -214,7 +220,7 @@ class RiskAnalystAgent:
                                   error=e, attempts=attempt, usage=call_usage)
                 raise RuntimeError(f"Risk Analyst API call failed: {e}") from e
 
-            self._record_usage(response, call_usage)
+            record_usage(response, call_usage, self.usage_totals)
             choice = response.choices[0]
             content = choice.message.content
             self.last_raw_response = content
@@ -280,51 +286,18 @@ class RiskAnalystAgent:
     def _extract_json_from_response(self, response_content: str) -> str:
         """Extract JSON content from LLM response
 
-        Search order:
-        1. ```json fenced blocks (the last one wins - it holds the final answer)
-        2. Any other fenced block containing an object
-        3. The first decodable {...} object anywhere in the text
-        4. The outermost {...} span, even if malformed, so the caller's parser
-           can attempt a repair or report the exact decode error
-
-        Args:
-            response_content: Raw LLM response text
-
-        Returns:
-            The JSON object as a string
+        Handles JSON in ```json code blocks, JSON in plain text, malformed JSON
+        (returned as-is so the parser can repair or report it) and empty
+        responses. See agent_utils.extract_json_object for the search order.
 
         Raises:
             ValueError: If the response is empty or contains no JSON object
         """
-        if not response_content or not response_content.strip():
-            raise ValueError("No JSON content found: empty response")
-
-        fenced_blocks = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", response_content, re.DOTALL | re.IGNORECASE)
-        if fenced_blocks:
-            return fenced_blocks[-1].strip()
-
-        decoder = json.JSONDecoder()
-        for match in re.finditer(r"\{", response_content):
-            try:
-                obj, end = decoder.raw_decode(response_content, match.start())
-            except json.JSONDecodeError:
-                continue
-            if isinstance(obj, dict):
-                return response_content[match.start():end]
-
-        start, end = response_content.find("{"), response_content.rfind("}")
-        if start != -1 and end > start:
-            return response_content[start:end + 1]
-
-        raise ValueError("No JSON content found in response")
+        return extract_json_object(response_content)
 
     def _parse_json(self, json_text: str) -> Any:
         """Parse JSON, repairing trailing commas - a common LLM formatting slip"""
-        try:
-            return json.loads(json_text)
-        except json.JSONDecodeError:
-            repaired = re.sub(r",\s*([}\]])", r"\1", json_text)
-            return json.loads(repaired)  # Raises JSONDecodeError (a ValueError) if still invalid
+        return parse_json_lenient(json_text)
 
     def _normalize_output(self, data: Any) -> tuple:
         """Coerce near-miss LLM output into the RiskAnalystOutput contract
@@ -386,7 +359,7 @@ class RiskAnalystAgent:
 
         reasoning = data.get('reasoning')
         if isinstance(reasoning, str) and len(reasoning) > REASONING_MAX_CHARS:
-            truncated = reasoning[:REASONING_MAX_CHARS - 3].rsplit(' ', 1)[0] + "..."
+            truncated = truncate_text(reasoning, REASONING_MAX_CHARS)
             data['reasoning'] = truncated
             adjustments.append(f"reasoning truncated from {len(reasoning)} to {len(truncated)} characters")
 
@@ -405,20 +378,7 @@ class RiskAnalystAgent:
 
     def _extract_reasoning_trace(self, response_content: Optional[str]) -> str:
         """Return the Chain-of-Thought text with the JSON block removed"""
-        if not response_content:
-            return ""
-        trace = re.sub(r"```(?:json)?\s*\{.*?\}\s*```", "", response_content, flags=re.DOTALL | re.IGNORECASE)
-        return trace.strip()
-
-    def _record_usage(self, response, call_usage: Dict[str, int]) -> None:
-        """Accumulate token usage for cost tracking (skipped when the client returns none)"""
-        self.usage_totals['api_calls'] += 1
-        usage = getattr(response, 'usage', None)
-        for field in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
-            value = getattr(usage, field, None)
-            if isinstance(value, int):
-                call_usage[field] += value
-                self.usage_totals[field] += value
+        return strip_json_blocks(response_content)
 
     def _log_failure(self, case_id: str, input_summary: Dict[str, Any], start_time: float,
                      reasoning: str, error: Optional[Exception], attempts: int,
@@ -452,10 +412,10 @@ class RiskAnalystAgent:
         last_activity = max(txn.transaction_date for txn in transactions)
 
         income = f"${customer.annual_income:,}" if customer.annual_income is not None else "Not reported"
-        tenure = self._years_between(customer.customer_since, last_activity)
+        tenure = years_between(customer.customer_since, last_activity)
         profile_lines = [
             f"- Name: {customer.name} ({customer.customer_id})",
-            f"- Age: {self._years_between(customer.date_of_birth, last_activity)} (born {customer.date_of_birth})",
+            f"- Age: {years_between(customer.date_of_birth, last_activity)} (born {customer.date_of_birth})",
             f"- Occupation: {customer.occupation or 'Not reported'}",
             f"- Annual income: {income}",
             f"- Customer since: {customer.customer_since} ({tenure} year{'s' if tenure != 1 else ''})",
@@ -510,106 +470,7 @@ class RiskAnalystAgent:
 
     def _format_financial_summary(self, case_data: CaseData) -> str:
         """Pre-computed statistics that make the key patterns explicit to the model"""
-        transactions = case_data.transactions
-        customer = case_data.customer
-        dates = [txn.transaction_date for txn in transactions]
-        total_volume = sum(txn.amount for txn in transactions)
-
-        lines = [
-            f"- Period: {min(dates)} to {max(dates)}, {len(transactions)} transactions, "
-            f"total volume ${total_volume:,.2f}"
-        ]
-        if customer.annual_income:
-            lines.append(f"- Total volume is {total_volume / customer.annual_income:.1f}x reported annual income")
-
-        type_totals: Dict[str, List[float]] = {}
-        for txn in transactions:
-            type_totals.setdefault(txn.transaction_type, []).append(txn.amount)
-        top_types = sorted(type_totals.items(), key=lambda item: sum(item[1]), reverse=True)[:6]
-        lines.append("- Volume by type: " + "; ".join(
-            f"{txn_type} {len(amounts)} txns ${sum(amounts):,.2f}" for txn_type, amounts in top_types
-        ))
-
-        # Keyed on transaction type - the method column is noisy (e.g. Debit_Purchase "via ATM")
-        cash = [txn for txn in transactions
-                if 'Cash' in txn.transaction_type or 'ATM' in txn.transaction_type]
-        if cash:
-            branches = {txn.location for txn in cash if txn.location}
-            lines.append(f"- Cash/ATM activity: {len(cash)} txns, ${sum(txn.amount for txn in cash):,.2f}, "
-                         f"{len(branches)} distinct locations")
-
-            near_threshold = [txn for txn in cash if 'Deposit' in txn.transaction_type
-                              and NEAR_THRESHOLD_FLOOR <= txn.amount < CTR_THRESHOLD]
-            if near_threshold:
-                lines.append(f"- Cash deposits between $9,000 and $10,000: {len(near_threshold)} "
-                             f"totalling ${sum(txn.amount for txn in near_threshold):,.2f} "
-                             f"({min(t.transaction_date for t in near_threshold)} to "
-                             f"{max(t.transaction_date for t in near_threshold)})")
-
-            ctr_reportable = [txn for txn in cash if txn.amount >= CTR_THRESHOLD]
-            if ctr_reportable:
-                lines.append(f"- Cash transactions of $10,000 or more: {len(ctr_reportable)} "
-                             f"totalling ${sum(txn.amount for txn in ctr_reportable):,.2f} "
-                             f"(above the CTR threshold - reportable, not threshold avoidance)")
-
-            # Same-day cash spread across transactions/branches - the aggregate is what CTR rules look at
-            cash_by_day: Dict[str, List[TransactionData]] = {}
-            for txn in cash:
-                cash_by_day.setdefault(txn.transaction_date, []).append(txn)
-            busiest_day, day_txns = max(cash_by_day.items(), key=lambda item: sum(t.amount for t in item[1]))
-            if len(day_txns) >= 2:
-                day_total = sum(t.amount for t in day_txns)
-                day_branches = {t.location for t in day_txns if t.location}
-                lines.append(f"- Busiest cash day: {busiest_day} with {len(day_txns)} cash transactions totalling "
-                             f"${day_total:,.2f} at {len(day_branches)} locations"
-                             + (" (aggregate exceeds $10,000)" if day_total > CTR_THRESHOLD else ""))
-
-        wires_in = [txn for txn in transactions if txn.transaction_type == 'Wire_Transfer_Credit']
-        wires_out = [txn for txn in transactions if txn.transaction_type == 'Wire_Transfer_Debit']
-        if wires_in or wires_out:
-            counterparties = {txn.counterparty for txn in wires_out if txn.counterparty}
-            lines.append(f"- Incoming wires: {len(wires_in)} totalling ${sum(t.amount for t in wires_in):,.2f}; "
-                         f"outgoing wires: {len(wires_out)} totalling ${sum(t.amount for t in wires_out):,.2f} "
-                         f"to {len(counterparties)} distinct counterparties")
-            if wires_in and wires_out:
-                first_in = min(t.transaction_date for t in wires_in)
-                passed_on = [t for t in wires_out if t.transaction_date >= first_in]
-                if passed_on:
-                    days = self._days_between(first_in, max(t.transaction_date for t in passed_on))
-                    share = sum(t.amount for t in passed_on) / sum(t.amount for t in wires_in)
-                    lines.append(f"- Pass-through: {share:.0%} of incoming wire value sent out by wire within "
-                                 f"{days} day{'s' if days != 1 else ''} of the first incoming wire")
-
-        largest = max(transactions, key=lambda txn: txn.amount)
-        lines.append(f"- Largest transaction: ${largest.amount:,.2f} {largest.transaction_type} "
-                     f"on {largest.transaction_date}")
-
-        closed_ids = {acc.account_id for acc in case_data.accounts if acc.status == 'Closed'}
-        closed_activity = [txn for txn in transactions if txn.account_id in closed_ids]
-        if closed_activity:
-            lines.append(f"- Transactions posted to CLOSED accounts: {len(closed_activity)}")
-
-        contradictions = sum(
-            1 for txn in transactions
-            if ('Deposit' in txn.transaction_type and 'withdrawal' in txn.description.lower())
-            or ('Withdrawal' in txn.transaction_type and 'deposit' in txn.description.lower())
-        )
-        if contradictions:
-            lines.append(f"- Description contradicts transaction type: {contradictions} txns")
-
-        return "\n".join(lines)
-
-    @staticmethod
-    def _days_between(start: str, end: str) -> int:
-        """Days between two YYYY-MM-DD dates"""
-        return (datetime.strptime(end, "%Y-%m-%d") - datetime.strptime(start, "%Y-%m-%d")).days
-
-    @staticmethod
-    def _years_between(start: str, end: str) -> int:
-        """Whole years between two YYYY-MM-DD dates"""
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
-        return end_date.year - start_date.year - ((end_date.month, end_date.day) < (start_date.month, start_date.day))
+        return summarize_case_activity(case_data)
 
 # ===== PROMPT ENGINEERING HELPERS =====
 
