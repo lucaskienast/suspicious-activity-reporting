@@ -1,0 +1,335 @@
+{
+  "funnel": {
+    "customers_with_activity": 119,
+    "alerts_raised": 25,
+    "alerts_processed": 25,
+    "risk_analyses": 25,
+    "rejected_at_drafting_gate": 7,
+    "narratives_generated": 18,
+    "narrative_failures": 0,
+    "rejected_at_filing_gate": 0,
+    "sars_filed": 18,
+    "errors": 0
+  },
+  "stage_costs": {
+    "RiskAnalyst": {
+      "runs": 25,
+      "api_calls": 25,
+      "prompt_tokens": 91560,
+      "completion_tokens": 12122,
+      "latency_ms": 96253.66737879813,
+      "cost_usd": 0.0210072,
+      "avg_cost_usd": 0.000840288,
+      "avg_latency_s": 3.850146695151925
+    },
+    "ComplianceOfficer": {
+      "runs": 18,
+      "api_calls": 22,
+      "prompt_tokens": 54471,
+      "completion_tokens": 10973,
+      "latency_ms": 93296.20024817996,
+      "cost_usd": 0.014754449999999999,
+      "avg_cost_usd": 0.0008196916666666666,
+      "avg_latency_s": 5.183122236009997
+    }
+  },
+  "cost_optimization": {
+    "actual_cost_usd": 0.03576165,
+    "single_stage_cost_usd": 0.041499491666666666,
+    "no_screening_cost_usd": 0.19753758033333332,
+    "compliance_runs_avoided_by_gate": 7,
+    "risk_analyses_avoided_by_screening": 94,
+    "savings_vs_single_stage_pct": 13.826293856209881,
+    "savings_vs_no_screening_pct": 81.89628022189284,
+    "cost_per_filed_sar_usd": 0.001986758333333333
+  },
+  "timing": {
+    "avg_case_time_s": 7.586469636913389,
+    "total_processing_time_s": 189.66174092283472
+  },
+  "human_decisions": {
+    "sar_drafting": {
+      "reviewed": 25,
+      "approved": 18,
+      "rejected": 7,
+      "approval_rate": 0.72,
+      "decision_sources": [
+        "simulated_policy"
+      ]
+    },
+    "sar_filing": {
+      "reviewed": 18,
+      "approved": 18,
+      "rejected": 0,
+      "approval_rate": 1.0,
+      "decision_sources": [
+        "simulated_policy"
+      ]
+    }
+  },
+  "ai_quality": {
+    "classification_agreement_with_screening": 0.9047619047619048,
+    "cases_with_screening_expectation": 21,
+    "confidence_mean": 0.826,
+    "confidence_min": 0.7,
+    "confidence_max": 0.9,
+    "narratives_complete_pct": 100.0,
+    "narratives_within_word_limit_pct": 100.0,
+    "narratives_with_warnings": 1,
+    "avg_narrative_words": 67.22222222222223
+  },
+  "run_id": "20261011_121517",
+  "review_mode": "simulated_policy",
+  "case_outcomes": [
+    {
+      "customer": "CUST_0018 Tanya Johnston",
+      "screening": 65,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 53,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0081 Matthew Alexander",
+      "screening": 60,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 64,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0009 Brandi Bailey",
+      "screening": 55,
+      "ai_finding": "Money_Laundering/Medium",
+      "confidence": 0.8,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0053 Tracy Lewis",
+      "screening": 55,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 58,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0062 Michael Stanley",
+      "screening": 55,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 61,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0090 Brandon Reyes",
+      "screening": 55,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 61,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0103 Lisa Kennedy",
+      "screening": 55,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 74,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0111 Jacqueline Rodriguez",
+      "screening": 55,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 60,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0045 Lucas Allen",
+      "screening": 50,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 66,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0118 Patrick Williams",
+      "screening": 50,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 81,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0125 Kayla Jackson",
+      "screening": 45,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 60,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0137 Regina Ramos",
+      "screening": 45,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 69,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0057 Cindy Clayton",
+      "screening": 40,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 72,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0074 Grant Mueller",
+      "screening": 40,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 74,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0115 Kevin Scott",
+      "screening": 40,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 69,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0143 Andre Rodriguez",
+      "screening": 40,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 77,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0060 Daniel Bernard",
+      "screening": 35,
+      "ai_finding": "Other/Medium",
+      "confidence": 0.7,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0038 Shannon Johnston",
+      "screening": 30,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 75,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0056 Gloria Gomez",
+      "screening": 30,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 66,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0105 Steven Howard",
+      "screening": 30,
+      "ai_finding": "Structuring/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 70,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
+      "customer": "CUST_0129 James Willis",
+      "screening": 30,
+      "ai_finding": "Other/Medium",
+      "confidence": 0.7,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0069 Melissa Miller",
+      "screening": 15,
+      "ai_finding": "Other/Low",
+      "confidence": 0.85,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0071 Elijah Patton",
+      "screening": 15,
+      "ai_finding": "Other/Medium",
+      "confidence": 0.7,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0076 Clayton Steele",
+      "screening": 15,
+      "ai_finding": "Other/Low",
+      "confidence": 0.9,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    },
+    {
+      "customer": "CUST_0146 Steve Wright",
+      "screening": 15,
+      "ai_finding": "Other/Medium",
+      "confidence": 0.7,
+      "gate_1": "reject",
+      "words": "-",
+      "gate_2": "-",
+      "outcome": "rejected_at_drafting_gate"
+    }
+  ]
+}

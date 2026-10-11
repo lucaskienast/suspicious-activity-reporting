@@ -1,0 +1,203 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0057-c3fbbb23",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:17:08.620558+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "782820c5-b4c8-470e-89e8-2df793907796",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "22695d2a98e08958ecb44cc4ccb136678afdfb415a54fbbf426680dd0f8eb989"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "date_of_birth": "1961-08-31",
+    "tin_last_4_masked": "XXX-XX-5450",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "occupation": "Applications developer",
+    "annual_income": 163820,
+    "customer_since": "2020-05-26",
+    "internal_risk_rating": "High",
+    "accounts": [
+      {
+        "account_id": "CUST_0057_ACC_1",
+        "customer_id": "CUST_0057",
+        "account_type": "Checking",
+        "opening_date": "2023-11-18",
+        "current_balance": 30581.8,
+        "average_monthly_balance": 126331.6,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0057_ACC_2",
+        "customer_id": "CUST_0057",
+        "account_type": "Money_Market",
+        "opening_date": "2021-06-14",
+        "current_balance": 61133.48,
+        "average_monthly_balance": 132905.48,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0057_ACC_3",
+        "customer_id": "CUST_0057",
+        "account_type": "Business_Checking",
+        "opening_date": "2021-06-17",
+        "current_balance": 88286.77,
+        "average_monthly_balance": 174758.47,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-31",
+      "end": "2025-08-02"
+    },
+    "flagged_transaction_count": 6,
+    "flagged_amount_total": 35140.72,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_858F6C4A",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5100.37,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_3E1FBB4E",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 4340.55,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Suburban_Center"
+      },
+      {
+        "transaction_id": "GEO_F4BFE383",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "Cash_Deposit",
+        "amount": 5500.55,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      },
+      {
+        "transaction_id": "GEO_41DB416E",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 7491.44,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_33653B27",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5774.15,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      },
+      {
+        "transaction_id": "GEO_AC1EC201",
+        "account_id": "CUST_0057_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "Cash_Deposit",
+        "amount": 6933.66,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      }
+    ],
+    "key_indicators": [
+      "4 cash transactions totaling $22,432.91 on 2025-07-31",
+      "15 cash transactions totaling $54,697.23 across 4 locations"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "high_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "On July 31, 2025, Cindy Clayton (CUST_0057), an applications developer, conducted 4 cash transactions totaling $22,432.91 across 3 locations. During the period from February 5 to August 2, 2025, she executed 15 cash transactions totaling $54,697.23, which is inconsistent with her annual income of $163,820. This activity is consistent with structuring under 31 USC 5324, as the cash transactions exceeded the CTR threshold, raising suspicion of an attempt to evade reporting requirements.",
+    "word_count": 72,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: High income, significant account balances. Pattern: Multiple cash transactions on July 31, 2025, totaling $22,432.91 across 3 locations. Mapping: Evidence supports Structuring due to cash activity exceeding CTR thresholds. Risk: High due to amounts relative to income and repeated behavior. Decision: Structuring is the most supported category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by outlining the subject's identity, the suspicious cash transactions, the timeframe, locations, and the reason for suspicion based on structuring indicators."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:03.830501+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (72 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:08.620441+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "782820c5-b4c8-470e-89e8-2df793907796",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0038-57ce3520",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:17:47.646903+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "98ac9dce-ea18-47eb-8af9-4184cb90897f",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "9e10d7459a0a714c478c5b97bf96d85c74b98d9f0c115d02f09f82baf2b24a50"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Shannon Johnston",
+    "customer_id": "CUST_0038",
+    "date_of_birth": "1980-09-15",
+    "tin_last_4_masked": "XXX-XX-7843",
+    "address": "52975 Samuel Coves Apt. 696, South Monicamouth, IN 44156",
+    "occupation": "Designer, ceramics/pottery",
+    "annual_income": 154343,
+    "customer_since": "2017-02-22",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0038_ACC_1",
+        "customer_id": "CUST_0038",
+        "account_type": "Business_Checking",
+        "opening_date": "2022-05-09",
+        "current_balance": 21980.05,
+        "average_monthly_balance": 97467.25,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-08-01",
+      "end": "2025-08-03"
+    },
+    "flagged_transaction_count": 5,
+    "flagged_amount_total": 26169.59,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_87831751",
+        "account_id": "CUST_0038_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 4306.12,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_5B8FDBBE",
+        "account_id": "CUST_0038_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5968.45,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      },
+      {
+        "transaction_id": "GEO_5A466436",
+        "account_id": "CUST_0038_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "Cash_Deposit",
+        "amount": 4832.67,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      },
+      {
+        "transaction_id": "GEO_F1530004",
+        "account_id": "CUST_0038_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "Cash_Deposit",
+        "amount": 7404.03,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_34A37258",
+        "account_id": "CUST_0038_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 3658.32,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      }
+    ],
+    "key_indicators": [
+      "4 cash transactions totaling $22,511.27 on 2025-08-01",
+      "$7,404.03 cash deposit on 2025-08-01",
+      "11 cash transactions totaling $39,605.11 across 4 locations"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "medium_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "On 2025-08-01, Shannon Johnston (CUST_0038), a designer, conducted multiple cash transactions totaling $39,605.11 across four locations, including a cash deposit of $7,404.03. This activity is consistent with structuring under 31 USC 5324, as it involved four cash transactions exceeding $10,000 in one day, suggesting an attempt to evade Currency Transaction Report requirements. The total cash activity from 2025-02-05 to 2025-08-03 amounted to $135,876.80, significantly exceeding her reported annual income of $154,343, indicating a high-risk profile.",
+    "word_count": 75,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Shannon has a medium risk rating and significant cash activity. Pattern: Multiple cash deposits and withdrawals exceeding $10,000 on 2025-08-01. Mapping: Evidence supports Structuring due to attempts to evade CTR reporting. Risk: High due to significant cash volume relative to income. Decision: Structuring is the most applicable category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash transactions, the date of activity, the locations involved, and the rationale for suspicion based on structuring indicators."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:43.152623+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (75 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:47.646494+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "98ac9dce-ea18-47eb-8af9-4184cb90897f",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

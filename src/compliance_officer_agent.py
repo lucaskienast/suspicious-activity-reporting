@@ -15,9 +15,10 @@ How it works:
    identify regulatory requirements, plan WHO/WHAT/WHEN/WHERE/WHY) and an
    ACTION phase (draft, verify with an OBSERVATION, finalize as JSON).
 3. The code then acts as the external observer: it validates the word limit,
-   the five narrative elements and the citations. A narrative over 120 words
-   is sent back with the observation for revision; anything still failing
-   after all attempts raises a ValueError.
+   the five narrative elements and the citations. A narrative over 120 words,
+   or one with speculative language or other typologies, is sent back with
+   the observation for revision. A narrative still over the limit after all
+   attempts raises a ValueError; a flagged but valid draft is kept as fallback.
 4. Every narrative - successful or not - is written to the audit trail with
    the ReACT trace, the validation report and token usage.
 """
@@ -138,7 +139,7 @@ NARRATIVE REQUIREMENTS
 - Identify the subject by name with customer ID in parentheses, e.g. "Tracy Lewis (CUST_0053)".
 - Quote figures and dates exactly as given in the ACTIVITY SUMMARY, the analyst's key indicators or the transaction list (e.g. "$67,569.06", "between 2025-07-25 and 2025-07-31"). Do not calculate new totals or ranges, distinguish individual amounts from totals, and never invent facts.
 - Describe only the typology the Risk Analyst classified - do not suggest additional typologies.
-- Objective, professional regulatory tone: third person, past tense. State what was observed and why it is suspicious, describing it as "consistent with" a typology - never assert guilt, and do not comment on the subject's intent or on the legitimacy or source of the funds.
+- Objective, professional regulatory tone: third person, past tense. State what was observed and why it is suspicious, describing it as "consistent with" a typology - never assert guilt, and do not comment on the subject's intent or on the legitimacy or source of the funds (avoid words such as "intent", "legitimacy", "illicit" and "criminal").
 - Description/type contradictions are data-quality issues, not evidence; activity on closed accounts is a valid red flag.
 - Use BSA/AML terminology (e.g. Bank Secrecy Act, Currency Transaction Report threshold, structuring, layering, OFAC sanctions).
 - Name the primary statute once in the narrative (e.g. "potential structuring under 31 USC 5324"), and cite each statute only for the conduct it covers - 31 CFR 1020.320 is the filing requirement, not an offence.
@@ -259,6 +260,7 @@ class ComplianceOfficerAgent:
         call_usage = new_usage_counter()
         last_error: Optional[Exception] = None
         react_trace = ""
+        fallback: Optional[tuple] = None
 
         for attempt in range(1, self.max_attempts + 1):
             try:
@@ -305,32 +307,35 @@ class ComplianceOfficerAgent:
             validation = self._validate_narrative_compliance(
                 result.narrative, case_data=case_data, citations=result.regulatory_citations,
                 risk_analysis=risk_analysis)
-            self.last_validation = validation
             if result.completeness_check and not validation['is_complete']:
                 adjustments.append(
                     "completeness_check overridden to False: " + "; ".join(validation['issues']))
                 result = result.model_copy(update={'completeness_check': False})
 
-            self.last_react_trace = react_trace
-            self.logger.log_agent_action(
-                agent_type="ComplianceOfficer",
-                action="generate_narrative",
-                case_id=case_data.case_id,
-                input_data=input_summary,
-                output_data={
-                    **result.model_dump(),
-                    'word_count': validation['word_count'],
-                    'validation': validation,
-                    'react_trace': react_trace,
-                    'normalizations': adjustments,
-                    'attempts': attempt,
-                    'token_usage': call_usage
-                },
-                reasoning=result.narrative_reasoning,
-                execution_time_ms=(time.perf_counter() - start_time) * 1000,
-                success=True
-            )
-            return result
+            # Tone and typology problems are revisable: send the observation back while attempts remain,
+            # keeping this valid draft in case the revision comes back worse
+            revision_reasons = self._revision_reasons(validation, risk_analysis)
+            if revision_reasons and attempt < self.max_attempts:
+                fallback = (result, validation, adjustments + ["kept as fallback: " + "; ".join(revision_reasons)],
+                            react_trace, attempt)
+                messages = messages[:2] + [
+                    {"role": "assistant", "content": content or ""},
+                    {"role": "user", "content": self._build_revision_message(revision_reasons, risk_analysis)}
+                ]
+                continue
+            if revision_reasons:  # final attempt and still flagged - the reviewer sees the warnings
+                adjustments.append("still flagged after revision: " + "; ".join(revision_reasons))
+            elif fallback is not None:
+                adjustments.append(f"narrative revised after OBSERVATION: {fallback[2][-1].split(': ', 1)[-1]}")
+
+            return self._log_success(case_data, input_summary, start_time, result, validation,
+                                     adjustments, react_trace, attempt, call_usage)
+
+        # A valid but flagged draft beats no narrative - the reviewer sees its warnings
+        if fallback is not None:
+            result, validation, adjustments, trace, _ = fallback
+            return self._log_success(case_data, input_summary, start_time, result, validation,
+                                     adjustments, trace, self.max_attempts, call_usage)
 
         # All attempts exhausted - classify the failure for the audit trail
         if isinstance(last_error, NarrativeWordLimitError):
@@ -350,6 +355,55 @@ class ComplianceOfficerAgent:
                           reasoning=f"JSON parsing failed after {self.max_attempts} attempt(s)",
                           error=last_error, attempts=self.max_attempts, usage=call_usage)
         raise ValueError(f"Failed to parse Compliance Officer JSON output: {last_error}") from last_error
+
+    def _log_success(self, case_data: CaseData, input_summary: Dict[str, Any], start_time: float,
+                     result: ComplianceOfficerOutput, validation: Dict[str, Any], adjustments: List[str],
+                     react_trace: str, attempts: int, call_usage: Dict[str, int]) -> ComplianceOfficerOutput:
+        """Record the accepted narrative on the agent and in the audit trail"""
+        self.last_validation = validation
+        self.last_react_trace = react_trace
+        self.logger.log_agent_action(
+            agent_type="ComplianceOfficer",
+            action="generate_narrative",
+            case_id=case_data.case_id,
+            input_data=input_summary,
+            output_data={
+                **result.model_dump(),
+                'word_count': validation['word_count'],
+                'validation': validation,
+                'react_trace': react_trace,
+                'normalizations': adjustments,
+                'attempts': attempts,
+                'token_usage': call_usage
+            },
+            reasoning=result.narrative_reasoning,
+            execution_time_ms=(time.perf_counter() - start_time) * 1000,
+            success=True
+        )
+        return result
+
+    @staticmethod
+    def _revision_reasons(validation: Dict[str, Any], risk_analysis: RiskAnalystOutput) -> List[str]:
+        """Validation findings the model can fix by rewording (not missing facts)"""
+        reasons = []
+        if validation.get('speculative_terms'):
+            reasons.append(f"speculative language {validation['speculative_terms']}")
+        if validation.get('other_typologies'):
+            reasons.append(f"mentions typologies other than {risk_analysis.classification}: "
+                           f"{validation['other_typologies']}")
+        return reasons
+
+    def _build_revision_message(self, reasons: List[str], risk_analysis: RiskAnalystOutput) -> str:
+        """ReACT observation asking for a reworded narrative"""
+        return (
+            f"OBSERVATION: compliance validation flagged the narrative - {'; '.join(reasons)}.\n\n"
+            f"Revise the narrative: describe only the observed activity and why it is consistent with "
+            f"{risk_analysis.classification}. Remove any statement about intent, legitimacy, illicit or criminal "
+            "conduct, or the source of funds, and do not mention other typologies. Keep every figure, date, "
+            "the subject identification and the citations. Reply with a one-line THOUGHT, then the corrected "
+            "JSON in a ```json code block with the fields narrative, narrative_reasoning, "
+            "regulatory_citations and completeness_check."
+        )
 
     def _extract_json_from_response(self, response_content: str) -> str:
         """Extract JSON content from LLM response

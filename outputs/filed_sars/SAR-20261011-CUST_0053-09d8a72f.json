@@ -1,0 +1,215 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0053-09d8a72f",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:15:48.428203+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "1097f0a7-6cb2-45e7-84b6-1f520bb39a9d",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "06af1576cdd708d938275019121d681a573e4199570755665861a7429fc44a32"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Tracy Lewis",
+    "customer_id": "CUST_0053",
+    "date_of_birth": "1966-10-26",
+    "tin_last_4_masked": "XXX-XX-1828",
+    "address": "8016 Nicole Stream Suite 650, Williamsside, ID 48017",
+    "occupation": "Nurse, mental health",
+    "annual_income": 131925,
+    "customer_since": "2024-05-11",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0053_ACC_1",
+        "customer_id": "CUST_0053",
+        "account_type": "Money_Market",
+        "opening_date": "2024-07-23",
+        "current_balance": 17676.35,
+        "average_monthly_balance": 89530.85,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0053_ACC_2",
+        "customer_id": "CUST_0053",
+        "account_type": "Savings",
+        "opening_date": "2024-08-20",
+        "current_balance": 62101.19,
+        "average_monthly_balance": 132766.49,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0053_ACC_3",
+        "customer_id": "CUST_0053",
+        "account_type": "Business_Checking",
+        "opening_date": "2024-11-10",
+        "current_balance": 90679.35,
+        "average_monthly_balance": 193505.85,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-25",
+      "end": "2025-07-31"
+    },
+    "flagged_transaction_count": 7,
+    "flagged_amount_total": 67569.06,
+    "flagged_transactions": [
+      {
+        "transaction_id": "STRUCT_41B3413C",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-25",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9238.15,
+        "description": "Cash deposit - business receipts",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_University_District"
+      },
+      {
+        "transaction_id": "STRUCT_973FE172",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-26",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9445.01,
+        "description": "Business cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "STRUCT_8A0DA70A",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-27",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9602.08,
+        "description": "Daily cash receipts",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      },
+      {
+        "transaction_id": "STRUCT_62D8F11B",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-28",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9716.77,
+        "description": "Business cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "STRUCT_0D6F062B",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-29",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9915.61,
+        "description": "Cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "STRUCT_A0A2C46C",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-30",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9864.52,
+        "description": "Cash deposit - business receipts",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "STRUCT_95419F9D",
+        "account_id": "CUST_0053_ACC_3",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9786.92,
+        "description": "Business cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      }
+    ],
+    "key_indicators": [
+      "7 cash deposits of $9,238.15-$9,915.61 from 2025-07-25 to 2025-07-31",
+      "Total cash deposits of $67,569.06 just below CTR threshold"
+    ],
+    "screening_signals": [
+      "structuring",
+      "medium_risk_rating",
+      "volume_vs_income"
+    ]
+  },
+  "narrative": {
+    "text": "Tracy Lewis (CUST_0053), a nurse, engaged in suspicious activity characterized by structuring. Between 2025-07-25 and 2025-07-31, she made seven cash deposits totaling $67,569.06, each ranging from $9,238.15 to $9,915.61, at various branches. This pattern of cash deposits, consistently just below the $10,000 threshold, raises concerns of structuring under 31 USC 5324, suggesting an effort to evade reporting requirements.",
+    "word_count": 58,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a high income with significant cash activity. Pattern: 7 cash deposits just below $10,000 totaling $67,569.06 in 7 days. Mapping: Evidence supports Structuring; no other typologies apply. Risk: High due to repeated threshold avoidance. Decision: Structuring is the most fitting classification."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, the nature and amount of suspicious transactions, the timeframe, locations, and the reason for suspicion, all while adhering to regulatory requirements."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:15:43.537793+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (58 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:15:48.427918+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "1097f0a7-6cb2-45e7-84b6-1f520bb39a9d",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

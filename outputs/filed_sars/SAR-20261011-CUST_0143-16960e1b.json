@@ -1,0 +1,175 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0143-16960e1b",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:17:34.653737+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "af80cf26-f2c6-412a-bca8-36f69dfbc749",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "a90549e0232b89f5fd29c71e6d979211654c7f8a89279f1fb6a39a51f6246af5"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Andre Rodriguez",
+    "customer_id": "CUST_0143",
+    "date_of_birth": "1956-08-28",
+    "tin_last_4_masked": "XXX-XX-1521",
+    "address": "789 Williams Forges Apt. 037, South Laurieton, MN 73641",
+    "occupation": "Ship broker",
+    "annual_income": 62318,
+    "customer_since": "2022-02-09",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0143_ACC_1",
+        "customer_id": "CUST_0143",
+        "account_type": "Savings",
+        "opening_date": "2024-12-16",
+        "current_balance": 34079.6,
+        "average_monthly_balance": 111869.9,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0143_ACC_2",
+        "customer_id": "CUST_0143",
+        "account_type": "Money_Market",
+        "opening_date": "2022-10-30",
+        "current_balance": 26622.4,
+        "average_monthly_balance": 97945.0,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-08-01",
+      "end": "2025-08-03"
+    },
+    "flagged_transaction_count": 4,
+    "flagged_amount_total": 24993.32,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_A5644312",
+        "account_id": "CUST_0143_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "Cash_Deposit",
+        "amount": 7032.6,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_5470684E",
+        "account_id": "CUST_0143_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 7954.85,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_ABDF63CD",
+        "account_id": "CUST_0143_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "Cash_Deposit",
+        "amount": 5836.49,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_E884D500",
+        "account_id": "CUST_0143_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 4169.38,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      }
+    ],
+    "key_indicators": [
+      "$7,032.60 cash deposit on 2025-08-01",
+      "$7,954.85 ATM withdrawal on 2025-08-01",
+      "$5,836.49 cash deposit on 2025-08-02",
+      "$4,169.38 cash deposit on 2025-08-03"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "medium_risk_rating",
+      "volume_vs_income"
+    ]
+  },
+  "narrative": {
+    "text": "On August 1, 2025, Andre Rodriguez (CUST_0143), a ship broker, conducted two cash transactions at Branch_Westside_Plaza, totaling $14,987.45, consisting of a $7,032.60 cash deposit and a $7,954.85 ATM withdrawal. This activity, along with subsequent cash deposits just below the CTR threshold, indicates a pattern consistent with structuring under 31 USC 5324, as it appears to evade reporting requirements. The total cash activity during the review period was $32,850.79, which is disproportionate to his annual income of $62,318.",
+    "word_count": 77,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a medium risk rating with significant cash activity. Pattern: Large cash deposits and withdrawals on the same day, with subsequent cash deposits just below the CTR threshold. Mapping: Activity fits structuring criteria by evading CTR reporting. Risk: High amounts relative to income indicate serious concerns. Decision: Classified as Structuring."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the specific cash transactions, the date and location of the activity, and the rationale for suspicion based on structuring patterns."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:30.002980+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (77 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:34.653333+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "af80cf26-f2c6-412a-bca8-36f69dfbc749",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

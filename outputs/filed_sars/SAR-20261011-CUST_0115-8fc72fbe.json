@@ -1,0 +1,198 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0115-8fc72fbe",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:17:26.114130+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "f0b23b3c-e1b2-47ef-abd4-8b04a7befceb",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "b36988b3f66f4806620fd4522b100bc5dcba43d4a213b38890b0a2c4d1b0b158"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Kevin Scott",
+    "customer_id": "CUST_0115",
+    "date_of_birth": "1965-05-30",
+    "tin_last_4_masked": "XXX-XX-3536",
+    "address": "094 Tyler Plaza Suite 158, East Abigail, WY 66710",
+    "occupation": "Engineering geologist",
+    "annual_income": 180449,
+    "customer_since": "2018-10-30",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0115_ACC_1",
+        "customer_id": "CUST_0115",
+        "account_type": "Money_Market",
+        "opening_date": "2019-11-28",
+        "current_balance": 86927.8,
+        "average_monthly_balance": 208875.1,
+        "status": "Closed"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-08-01",
+      "end": "2025-08-03"
+    },
+    "flagged_transaction_count": 7,
+    "flagged_amount_total": 28454.37,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_341BC862",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "Cash_Deposit",
+        "amount": 3502.0,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_University_District"
+      },
+      {
+        "transaction_id": "GEO_ADC79430",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "Cash_Deposit",
+        "amount": 5684.92,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      },
+      {
+        "transaction_id": "GEO_8080A5E7",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "Cash_Deposit",
+        "amount": 6423.72,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Suburban_Center"
+      },
+      {
+        "transaction_id": "GEO_21A3CC4B",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2440.93,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_2A24207A",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2338.85,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_3747F1AF",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 4645.23,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_A8C37EFB",
+        "account_id": "CUST_0115_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 3418.72,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Airport_Terminal"
+      }
+    ],
+    "key_indicators": [
+      "3 cash deposits on 2025-08-03 totaling $10,402.80 across 3 locations",
+      "5 cash deposits totaling $23,674.59 in 3 days",
+      "Transactions posted to closed account"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "medium_risk_rating",
+      "closed_account_activity"
+    ]
+  },
+  "narrative": {
+    "text": "Kevin Scott (CUST_0115), an engineering geologist, engaged in suspicious activity consistent with structuring under 31 USC 5324. Between August 1 and August 3, 2025, he made 7 transactions totaling $28,454.37, including 5 cash deposits amounting to $23,674.59, with 3 cash deposits on August 3 totaling $10,402.80. Notably, all transactions were posted to a closed account, raising concerns about the high cash volume relative to his annual income of $180,449.",
+    "word_count": 69,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a medium risk rating with significant cash activity. Pattern: Multiple cash deposits below $10,000, with $10,402.80 in cash deposits on August 3. Mapping: Evidence aligns with structuring regulations. Risk: High cash volume relative to income. Decision: Structuring is the most supported category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings of structuring, detailing the subject's identity, transaction amounts, dates, account status, and the suspicious nature of the cash activity."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:21.444002+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (69 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:26.113805+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "f0b23b3c-e1b2-47ef-abd4-8b04a7befceb",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0137-a7cad0d3",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:16:59.736504+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "6b555e5c-95b3-4470-9fa6-5b2356daad38",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "647055bea3d2b3d5526a4b81da3b64ff473b5471f317dca2c7bd41062bf8b1cd"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Regina Ramos",
+    "customer_id": "CUST_0137",
+    "date_of_birth": "1967-08-18",
+    "tin_last_4_masked": "XXX-XX-5256",
+    "address": "82547 Gwendolyn Overpass, Evanschester, AS 38894",
+    "occupation": "Cartographer",
+    "annual_income": 129672,
+    "customer_since": "2017-07-27",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0137_ACC_1",
+        "customer_id": "CUST_0137",
+        "account_type": "Business_Checking",
+        "opening_date": "2021-03-16",
+        "current_balance": 99754.59,
+        "average_monthly_balance": 188192.49,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-24",
+      "end": "2025-07-26"
+    },
+    "flagged_transaction_count": 3,
+    "flagged_amount_total": 28118.47,
+    "flagged_transactions": [
+      {
+        "transaction_id": "STRUCT_7D3B8E94",
+        "account_id": "CUST_0137_ACC_1",
+        "transaction_date": "2025-07-24",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9168.52,
+        "description": "Cash deposit - business receipts",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "STRUCT_B6FA44C9",
+        "account_id": "CUST_0137_ACC_1",
+        "transaction_date": "2025-07-25",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9402.73,
+        "description": "Daily cash receipts",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      },
+      {
+        "transaction_id": "STRUCT_FF5B179C",
+        "account_id": "CUST_0137_ACC_1",
+        "transaction_date": "2025-07-26",
+        "transaction_type": "Cash_Deposit",
+        "amount": 9547.22,
+        "description": "Cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      }
+    ],
+    "key_indicators": [
+      "3 cash deposits of $9,168.52, $9,402.73, and $9,547.22",
+      "Deposits made across 3 distinct locations",
+      "Total cash deposits of $28,118.47 just under CTR threshold"
+    ],
+    "screening_signals": [
+      "structuring",
+      "medium_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "Regina Ramos (CUST_0137), a cartographer, made three cash deposits of $9,168.52, $9,402.73, and $9,547.22 between 2025-07-24 and 2025-07-26, totaling $28,118.47, just under the CTR threshold. These deposits were made at three distinct branches, which is consistent with structuring to evade reporting requirements under 31 USC 5324. The total cash deposits represent a significant amount relative to her annual income of $129,672, raising concerns about the nature of the transactions.",
+    "word_count": 69,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a high income and significant account balance. Pattern: Three cash deposits just under $10,000 totaling $28,118.47 over three days. Mapping: Evidence supports structuring; no other typologies apply. Risk: Material amounts relative to income indicate intent to evade CTR reporting. Decision: Classified as Structuring."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was revised to focus on the specific cash deposits made by the subject, emphasizing the amounts, dates, locations, and the classification of the activity as consistent with structuring."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:52.770122+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (69 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:59.736094+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "6b555e5c-95b3-4470-9fa6-5b2356daad38",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

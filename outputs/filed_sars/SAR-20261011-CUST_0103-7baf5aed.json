@@ -1,0 +1,176 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0103-7baf5aed",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:16:15.694520+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "efba0a9c-e5bd-45d2-a56f-d0ac06dd900e",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "fd2202fa889c54a5141d8d1c4029abc162f7722443b59c9a92aa841215ddb07c"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Lisa Kennedy",
+    "customer_id": "CUST_0103",
+    "date_of_birth": "1956-11-03",
+    "tin_last_4_masked": "XXX-XX-2963",
+    "address": "460 Derrick Flats Suite 697, West Michelle, HI 11093",
+    "occupation": "Pilot, airline",
+    "annual_income": 117356,
+    "customer_since": "2021-02-10",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0103_ACC_1",
+        "customer_id": "CUST_0103",
+        "account_type": "Savings",
+        "opening_date": "2025-01-22",
+        "current_balance": 76115.43,
+        "average_monthly_balance": 860095.53,
+        "status": "Closed"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-27",
+      "end": "2025-07-29"
+    },
+    "flagged_transaction_count": 5,
+    "flagged_amount_total": 130663.34,
+    "flagged_transactions": [
+      {
+        "transaction_id": "RAPID_084D094E",
+        "account_id": "CUST_0103_ACC_1",
+        "transaction_date": "2025-07-27",
+        "transaction_type": "Wire_Transfer_Credit",
+        "amount": 72235.46,
+        "description": "Incoming wire transfer",
+        "method": "Wire",
+        "counterparty": "Morgan-Nelson",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_93299C1A",
+        "account_id": "CUST_0103_ACC_1",
+        "transaction_date": "2025-07-28",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 8084.36,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Navarro Inc",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_EF886AF8",
+        "account_id": "CUST_0103_ACC_1",
+        "transaction_date": "2025-07-28",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 30236.26,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "James-Conway",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_2B7C990B",
+        "account_id": "CUST_0103_ACC_1",
+        "transaction_date": "2025-07-29",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 8400.83,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Ellis, Miller and Arnold",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_C0AA1DAC",
+        "account_id": "CUST_0103_ACC_1",
+        "transaction_date": "2025-07-29",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 11706.43,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Wiggins PLC",
+        "location": null
+      }
+    ],
+    "key_indicators": [
+      "Incoming wire of $72,235.46 on 2025-07-27",
+      "81% of incoming wire value sent out within 2 days",
+      "4 distinct outgoing wires totaling $58,427.88"
+    ],
+    "screening_signals": [
+      "rapid_movement",
+      "medium_risk_rating",
+      "closed_account_activity"
+    ]
+  },
+  "narrative": {
+    "text": "On 2025-07-27, Lisa Kennedy (CUST_0103) received a wire transfer of $72,235.46 into her closed savings account (CUST_0103_ACC_1). Within two days, she initiated four outgoing wire transfers totaling $58,427.88 to distinct counterparties. This pattern of a large incoming wire followed by rapid outflows is consistent with money laundering, as 81% of the incoming funds were sent out shortly after receipt. The total volume of $130,663.34 exceeds her reported annual income of $117,356, raising further concerns.",
+    "word_count": 74,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "18 USC 1956 (Money laundering)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a high average balance and medium risk rating. Pattern: Large incoming wire followed by multiple rapid outgoing wires to distinct counterparties. Mapping: Evidence supports money laundering due to pass-through nature. Risk: Significant volume compared to income raises concerns. Decision: Classify as Money_Laundering."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, transaction amounts, dates, account information, and the suspicious nature of the activity consistent with money laundering."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:11.083024+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (74 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:15.694220+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "efba0a9c-e5bd-45d2-a56f-d0ac06dd900e",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}
