@@ -52,5 +52,54 @@ def create_vocareum_openai_client():
     print("✅ OpenAI client initialized with Vocareum routing")
     print(f"🔑 API key: {api_key[:8]}...{api_key[-4:]}")
     print("📍 Base URL: https://openai.vocareum.com/v1")
-    
+
+    return client
+
+
+VOCAREUM_BASE_URL = "https://openai.vocareum.com/v1"
+
+
+def resolve_openai_base_url(api_key: str) -> Optional[str]:
+    """
+    Pick the API endpoint for a key.
+
+    OPENAI_BASE_URL wins when set; otherwise Vocareum keys ('voc-') are routed
+    through Vocareum and any other key uses the standard OpenAI endpoint (None).
+    """
+    return os.getenv('OPENAI_BASE_URL') or (VOCAREUM_BASE_URL if api_key.startswith('voc-') else None)
+
+
+def create_openai_client():
+    """
+    Create an OpenAI client for either a Vocareum key or a standard OpenAI key.
+
+    Works unchanged in the Udacity workspace (Vocareum 'voc-' keys) and locally
+    with a personal OpenAI key. No part of the key is printed, so notebook
+    outputs are safe to commit.
+
+    Returns:
+        openai.OpenAI: Configured OpenAI client instance
+
+    Raises:
+        ValueError: If OPENAI_API_KEY environment variable is not set
+        ImportError: If openai package is not installed
+    """
+    try:
+        import openai
+    except ImportError:
+        raise ImportError("openai package is required. Install with: pip install openai")
+
+    api_key = os.getenv('OPENAI_API_KEY')
+    if not api_key:
+        raise ValueError(
+            "OPENAI_API_KEY environment variable not found. "
+            "Add a Vocareum key (from 'Cloud Resources') or an OpenAI key to your .env file."
+        )
+
+    base_url = resolve_openai_base_url(api_key)
+    client = openai.OpenAI(base_url=base_url, api_key=api_key)
+
+    print(f"✅ OpenAI client initialized ({'Vocareum' if api_key.startswith('voc-') else 'OpenAI'} key)")
+    print(f"📍 Base URL: {base_url or 'https://api.openai.com/v1 (default)'}")
+
     return client
