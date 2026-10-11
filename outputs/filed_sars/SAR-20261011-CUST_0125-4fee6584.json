@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0125-ea21dbf2",
+    "sar_id": "SAR-20261011-CUST_0125-4fee6584",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T11:16:48.704414+00:00",
+    "prepared_at": "2026-10-11T12:32:05.079901+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "7109cb33-488b-43f7-ac90-28418719bb87",
-    "workflow_run_id": "20261011_121517",
+    "case_id": "539e3785-ef8a-4629-8fb5-28bd7804f75d",
+    "workflow_run_id": "20261011_133024",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "df276fcfd6f42ce6553e0da5a34a7bd598d7169fe39157c7e6e596eab1124b6b"
+    "document_checksum": "823d3a87d1d93e372969a7aa320f2c437d97d7a3b80fab020a5c12104d55f43c"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -44,7 +44,7 @@
   "suspicious_activity": {
     "classification": "Money_Laundering",
     "risk_level": "High",
-    "confidence_score": 0.85,
+    "confidence_score": 0.8,
     "activity_period": {
       "start": "2025-07-05",
       "end": "2025-07-18"
@@ -87,9 +87,9 @@
       }
     ],
     "key_indicators": [
-      "3 cash withdrawals over $10,000 totaling $109,365.06",
-      "Largest transaction $45,005.48 on 2025-07-10",
-      "Cash withdrawals from 4 distinct locations"
+      "3 cash withdrawals of $22,711.44, $45,005.48, $41,648.14 exceeding CTR threshold",
+      "Total cash withdrawals of $109,365.06, 1.86x annual income",
+      "Cash activity across 4 distinct locations"
     ],
     "screening_signals": [
       "large_cash",
@@ -98,8 +98,8 @@
     ]
   },
   "narrative": {
-    "text": "Kayla Jackson (CUST_0125), an armed forces logistics officer, exhibited suspicious activity through three cash withdrawals exceeding $10,000, totaling $109,365.06, between 2025-02-22 and 2025-07-29. These transactions occurred at four distinct locations, with the largest withdrawal of $45,005.48 on 2025-07-10. The total cash activity of $114,984.61 is inconsistent with her annual income of $58,685, indicating potential money laundering under 18 USC 1956.",
-    "word_count": 60,
+    "text": "Kayla Jackson (CUST_0125), an armed forces logistics officer, exhibited suspicious activity through three cash withdrawals of $22,711.44, $45,005.48, and $41,648.14, totaling $109,365.06, between 2025-02-22 and 2025-07-29. This amount is 1.86 times her annual income of $58,685 and occurred across four distinct locations. The significant cash activity, exceeding the CTR threshold, is consistent with potential money laundering under 18 USC 1956, warranting this SAR filing under 31 CFR 1020.320.",
+    "word_count": 68,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "18 USC 1956 (Money laundering)"
@@ -110,11 +110,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has a medium risk rating and significant cash activity. Pattern: Three cash withdrawals over $10,000 totaling $109,365.06. Mapping: Cash withdrawals are reportable, indicating potential money laundering. Risk: High due to volume relative to income. Decision: Money_Laundering is the most supported category."
+      "reasoning": "Profile: Customer has high cash withdrawals inconsistent with income. Pattern: Three cash withdrawals above $10k, totaling $109,365.06. Mapping: Evidence supports Money_Laundering due to large amounts relative to income. Risk: High risk due to significant cash activity. Decision: Classified as Money_Laundering."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash withdrawal activity, the timeframe, locations, and the rationale for suspicion based on income disparity."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash withdrawal amounts, the time frame of the transactions, the locations involved, and the rationale for suspicion based on income inconsistency."
     }
   },
   "human_review": [
@@ -122,22 +122,22 @@
       "gate": "sar_drafting",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
+      "rationale": "High risk Money_Laundering finding with confidence 0.80 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:16:44.068650+00:00"
+      "decided_at": "2026-10-11T12:32:00.213860+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (60 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (68 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:16:48.703966+00:00"
+      "decided_at": "2026-10-11T12:32:05.079433+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
-    "case_id": "7109cb33-488b-43f7-ac90-28418719bb87",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
+    "case_id": "539e3785-ef8a-4629-8fb5-28bd7804f75d",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

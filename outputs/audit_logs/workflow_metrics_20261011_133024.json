@@ -4,62 +4,62 @@
     "alerts_raised": 25,
     "alerts_processed": 25,
     "risk_analyses": 25,
-    "rejected_at_drafting_gate": 7,
-    "narratives_generated": 18,
+    "rejected_at_drafting_gate": 5,
+    "narratives_generated": 20,
     "narrative_failures": 0,
     "rejected_at_filing_gate": 0,
-    "sars_filed": 18,
+    "sars_filed": 20,
     "errors": 0
   },
   "stage_costs": {
     "RiskAnalyst": {
       "runs": 25,
       "api_calls": 25,
-      "prompt_tokens": 91560,
-      "completion_tokens": 12122,
-      "latency_ms": 96253.66737879813,
-      "cost_usd": 0.0210072,
-      "avg_cost_usd": 0.000840288,
-      "avg_latency_s": 3.850146695151925
+      "prompt_tokens": 91552,
+      "completion_tokens": 12074,
+      "latency_ms": 104046.67303944007,
+      "cost_usd": 0.020977199999999998,
+      "avg_cost_usd": 0.0008390879999999999,
+      "avg_latency_s": 4.1618669215776025
     },
     "ComplianceOfficer": {
-      "runs": 18,
-      "api_calls": 22,
-      "prompt_tokens": 54471,
-      "completion_tokens": 10973,
-      "latency_ms": 93296.20024817996,
-      "cost_usd": 0.014754449999999999,
-      "avg_cost_usd": 0.0008196916666666666,
-      "avg_latency_s": 5.183122236009997
+      "runs": 20,
+      "api_calls": 23,
+      "prompt_tokens": 54441,
+      "completion_tokens": 11800,
+      "latency_ms": 103953.94649961963,
+      "cost_usd": 0.01524615,
+      "avg_cost_usd": 0.0007623075,
+      "avg_latency_s": 5.1976973249809815
     }
   },
   "cost_optimization": {
-    "actual_cost_usd": 0.03576165,
-    "single_stage_cost_usd": 0.041499491666666666,
-    "no_screening_cost_usd": 0.19753758033333332,
-    "compliance_runs_avoided_by_gate": 7,
+    "actual_cost_usd": 0.03622335,
+    "single_stage_cost_usd": 0.0400348875,
+    "no_screening_cost_usd": 0.1905660645,
+    "compliance_runs_avoided_by_gate": 5,
     "risk_analyses_avoided_by_screening": 94,
-    "savings_vs_single_stage_pct": 13.826293856209881,
-    "savings_vs_no_screening_pct": 81.89628022189284,
-    "cost_per_filed_sar_usd": 0.001986758333333333
+    "savings_vs_single_stage_pct": 9.520540053971672,
+    "savings_vs_no_screening_pct": 80.9917100953722,
+    "cost_per_filed_sar_usd": 0.0018111675
   },
   "timing": {
-    "avg_case_time_s": 7.586469636913389,
-    "total_processing_time_s": 189.66174092283472
+    "avg_case_time_s": 8.324398474982008,
+    "total_processing_time_s": 208.1099618745502
   },
   "human_decisions": {
     "sar_drafting": {
       "reviewed": 25,
-      "approved": 18,
-      "rejected": 7,
-      "approval_rate": 0.72,
+      "approved": 20,
+      "rejected": 5,
+      "approval_rate": 0.8,
       "decision_sources": [
         "simulated_policy"
       ]
     },
     "sar_filing": {
-      "reviewed": 18,
-      "approved": 18,
+      "reviewed": 20,
+      "approved": 20,
       "rejected": 0,
       "approval_rate": 1.0,
       "decision_sources": [
@@ -68,17 +68,17 @@
     }
   },
   "ai_quality": {
-    "classification_agreement_with_screening": 0.9047619047619048,
+    "classification_agreement_with_screening": 1.0,
     "cases_with_screening_expectation": 21,
-    "confidence_mean": 0.826,
+    "confidence_mean": 0.836,
     "confidence_min": 0.7,
     "confidence_max": 0.9,
     "narratives_complete_pct": 100.0,
     "narratives_within_word_limit_pct": 100.0,
     "narratives_with_warnings": 1,
-    "avg_narrative_words": 67.22222222222223
+    "avg_narrative_words": 66.15
   },
-  "run_id": "20261011_121517",
+  "run_id": "20261011_133024",
   "review_mode": "simulated_policy",
   "case_outcomes": [
     {
@@ -87,37 +87,37 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 53,
+      "words": 60,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
     {
       "customer": "CUST_0081 Matthew Alexander",
       "screening": 60,
-      "ai_finding": "Money_Laundering/High",
-      "confidence": 0.85,
-      "gate_1": "approve",
-      "words": 64,
-      "gate_2": "approve",
-      "outcome": "sar_filed"
-    },
-    {
-      "customer": "CUST_0009 Brandi Bailey",
-      "screening": 55,
       "ai_finding": "Money_Laundering/Medium",
-      "confidence": 0.8,
+      "confidence": 0.85,
       "gate_1": "reject",
       "words": "-",
       "gate_2": "-",
       "outcome": "rejected_at_drafting_gate"
     },
     {
+      "customer": "CUST_0009 Brandi Bailey",
+      "screening": 55,
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 70,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
+    },
+    {
       "customer": "CUST_0053 Tracy Lewis",
       "screening": 55,
       "ai_finding": "Structuring/High",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "gate_1": "approve",
-      "words": 58,
+      "words": 59,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -127,7 +127,7 @@
       "ai_finding": "Money_Laundering/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 61,
+      "words": 63,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -135,9 +135,9 @@
       "customer": "CUST_0090 Brandon Reyes",
       "screening": 55,
       "ai_finding": "Structuring/High",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "gate_1": "approve",
-      "words": 61,
+      "words": 79,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -147,7 +147,7 @@
       "ai_finding": "Money_Laundering/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 74,
+      "words": 66,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -157,7 +157,7 @@
       "ai_finding": "Money_Laundering/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 60,
+      "words": 63,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -167,7 +167,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 66,
+      "words": 76,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -177,7 +177,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 81,
+      "words": 63,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -185,9 +185,9 @@
       "customer": "CUST_0125 Kayla Jackson",
       "screening": 45,
       "ai_finding": "Money_Laundering/High",
-      "confidence": 0.85,
+      "confidence": 0.8,
       "gate_1": "approve",
-      "words": 60,
+      "words": 68,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -197,7 +197,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 69,
+      "words": 62,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -207,7 +207,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 72,
+      "words": 74,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -217,7 +217,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 74,
+      "words": 68,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -227,7 +227,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 69,
+      "words": 57,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -237,19 +237,19 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 77,
+      "words": 67,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
     {
       "customer": "CUST_0060 Daniel Bernard",
       "screening": 35,
-      "ai_finding": "Other/Medium",
-      "confidence": 0.7,
-      "gate_1": "reject",
-      "words": "-",
-      "gate_2": "-",
-      "outcome": "rejected_at_drafting_gate"
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.85,
+      "gate_1": "approve",
+      "words": 63,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
     },
     {
       "customer": "CUST_0038 Shannon Johnston",
@@ -257,7 +257,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 75,
+      "words": 77,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -267,7 +267,7 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 66,
+      "words": 64,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
@@ -277,14 +277,14 @@
       "ai_finding": "Structuring/High",
       "confidence": 0.85,
       "gate_1": "approve",
-      "words": 70,
+      "words": 66,
       "gate_2": "approve",
       "outcome": "sar_filed"
     },
     {
       "customer": "CUST_0129 James Willis",
       "screening": 30,
-      "ai_finding": "Other/Medium",
+      "ai_finding": "Structuring/Medium",
       "confidence": 0.7,
       "gate_1": "reject",
       "words": "-",
@@ -294,8 +294,8 @@
     {
       "customer": "CUST_0069 Melissa Miller",
       "screening": 15,
-      "ai_finding": "Other/Low",
-      "confidence": 0.85,
+      "ai_finding": "Other/Medium",
+      "confidence": 0.7,
       "gate_1": "reject",
       "words": "-",
       "gate_2": "-",
@@ -304,12 +304,12 @@
     {
       "customer": "CUST_0071 Elijah Patton",
       "screening": 15,
-      "ai_finding": "Other/Medium",
-      "confidence": 0.7,
-      "gate_1": "reject",
-      "words": "-",
-      "gate_2": "-",
-      "outcome": "rejected_at_drafting_gate"
+      "ai_finding": "Money_Laundering/High",
+      "confidence": 0.8,
+      "gate_1": "approve",
+      "words": 58,
+      "gate_2": "approve",
+      "outcome": "sar_filed"
     },
     {
       "customer": "CUST_0076 Clayton Steele",
@@ -324,8 +324,8 @@
     {
       "customer": "CUST_0146 Steve Wright",
       "screening": 15,
-      "ai_finding": "Other/Medium",
-      "confidence": 0.7,
+      "ai_finding": "Fraud/Medium",
+      "confidence": 0.75,
       "gate_1": "reject",
       "words": "-",
       "gate_2": "-",

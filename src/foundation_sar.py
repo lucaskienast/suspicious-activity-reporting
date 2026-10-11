@@ -129,6 +129,7 @@ class CustomerData(BaseModel):
     @field_validator('date_of_birth', 'customer_since', mode='before')
     @classmethod
     def validate_dates(cls, v: Any) -> str:
+        """Require real calendar dates in YYYY-MM-DD format."""
         return _validate_date_string(v)
 
     @field_validator('risk_rating', mode='before')
@@ -139,6 +140,7 @@ class CustomerData(BaseModel):
 
     @model_validator(mode='after')
     def check_relationship_dates(self) -> 'CustomerData':
+        """Reject relationships that start before the customer was born."""
         # ISO date strings compare chronologically
         if self.customer_since < self.date_of_birth:
             raise ValueError(
@@ -171,6 +173,7 @@ class AccountData(BaseModel):
     @field_validator('opening_date', mode='before')
     @classmethod
     def validate_opening_date(cls, v: Any) -> str:
+        """Require a real calendar date in YYYY-MM-DD format."""
         return _validate_date_string(v)
 
 
@@ -206,11 +209,13 @@ class TransactionData(BaseModel):
     @field_validator('transaction_date', mode='before')
     @classmethod
     def validate_transaction_date(cls, v: Any) -> str:
+        """Require a real calendar date in YYYY-MM-DD format."""
         return _validate_date_string(v)
 
     @field_validator('amount')
     @classmethod
     def validate_amount(cls, v: float) -> float:
+        """Reject zero-value transactions (negative amounts are debits)."""
         if v == 0:
             raise ValueError("transaction amount cannot be zero")
         return v
@@ -238,6 +243,7 @@ class CaseData(BaseModel):
     @field_validator('transactions')
     @classmethod
     def validate_transactions_not_empty(cls, v: List[TransactionData]) -> List[TransactionData]:
+        """A case needs at least one transaction to analyze."""
         if not v:
             raise ValueError("Case must contain at least one transaction")
         return v
@@ -245,6 +251,7 @@ class CaseData(BaseModel):
     @field_validator('case_created_at', mode='before')
     @classmethod
     def validate_case_created_at(cls, v: Any) -> str:
+        """Accept ISO-8601 strings or datetimes, stored as an ISO-8601 string."""
         if isinstance(v, datetime):
             return v.isoformat()
         if not isinstance(v, str):
@@ -257,6 +264,7 @@ class CaseData(BaseModel):
 
     @model_validator(mode='after')
     def check_case_consistency(self) -> 'CaseData':
+        """Enforce account ownership, transaction-account links and unique transaction IDs."""
         customer_id = self.customer.customer_id
 
         foreign_accounts = [acc.account_id for acc in self.accounts if acc.customer_id != customer_id]
@@ -315,6 +323,11 @@ class ExplainabilityLogger:
     """
 
     def __init__(self, log_file: str = "sar_audit.jsonl") -> None:
+        """Create the logger, creating the log file's directory if needed.
+
+        Args:
+            log_file: Path to the JSONL audit log (appended to, never truncated)
+        """
         self.log_file = log_file
         self.entries: List[Dict[str, Any]] = []
 
@@ -372,6 +385,11 @@ class DataLoader:
     """
 
     def __init__(self, explainability_logger: ExplainabilityLogger) -> None:
+        """Create the loader.
+
+        Args:
+            explainability_logger: Logger that receives one entry per case creation attempt
+        """
         self.logger = explainability_logger
 
     def create_case_from_data(self,

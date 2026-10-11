@@ -1,0 +1,131 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0060-4fb1546c",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T12:33:02.149298+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "55c0a84c-b2a0-4b34-8e46-30b41318c9a9",
+    "workflow_run_id": "20261011_133024",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "a2fc67c67665547158c265a2e6e278f76037cbaa151a9563e38f9d668c382913"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Daniel Bernard",
+    "customer_id": "CUST_0060",
+    "date_of_birth": "1974-09-16",
+    "tin_last_4_masked": "XXX-XX-8454",
+    "address": "8783 Erin Ranch Apt. 878, Christianshire, DE 08595",
+    "occupation": "Television production assistant",
+    "annual_income": 110144,
+    "customer_since": "2021-09-15",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0060_ACC_1",
+        "customer_id": "CUST_0060",
+        "account_type": "Business_Checking",
+        "opening_date": "2023-05-30",
+        "current_balance": 4050.96,
+        "average_monthly_balance": 227373.66,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-29",
+      "end": "2025-07-29"
+    },
+    "flagged_transaction_count": 1,
+    "flagged_amount_total": 48541.24,
+    "flagged_transactions": [
+      {
+        "transaction_id": "LARGE_BC86314D",
+        "account_id": "CUST_0060_ACC_1",
+        "transaction_date": "2025-07-29",
+        "transaction_type": "Cash_Deposit",
+        "amount": 48541.24,
+        "description": "Business cash deposit",
+        "method": "Cash",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      }
+    ],
+    "key_indicators": [
+      "Large cash deposit of $48,541.24 on 2025-07-29",
+      "Total volume of $81,885.04 over 4 months",
+      "Cash deposit is 0.6x monthly income"
+    ],
+    "screening_signals": [
+      "large_cash",
+      "medium_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "On July 29, 2025, Daniel Bernard (CUST_0060), a television production assistant, made a cash deposit of $48,541.24 at Branch_Financial_District. This transaction is part of a total volume of $81,885.04 over four months, which is 0.7 times his reported annual income of $110,144. The large cash deposit is inconsistent with his prior activity and raises suspicions of potential money laundering under 18 USC 1956.",
+    "word_count": 63,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "18 USC 1956 (Money laundering)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has a stable income and a recent account. Pattern: Large cash deposit of $48,541.24 inconsistent with prior activity. Mapping: This indicates potential money laundering. Risk: High risk due to significant cash deposit relative to income. Decision: Money_Laundering is the most supported category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the specific transaction, its context within his financial profile, and the resulting suspicion of money laundering."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T12:32:57.590221+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T12:33:02.148979+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
+    "case_id": "55c0a84c-b2a0-4b34-8e46-30b41318c9a9",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

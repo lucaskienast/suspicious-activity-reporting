@@ -22,6 +22,7 @@ How it works:
 import re
 import time
 import openai
+from openai.types.chat import ChatCompletion
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
 
@@ -146,9 +147,9 @@ class RiskAnalystAgent:
         usage_totals: Cumulative token usage and call counts across all analyses
     """
 
-    def __init__(self, openai_client, explainability_logger: ExplainabilityLogger,
+    def __init__(self, openai_client: openai.OpenAI, explainability_logger: ExplainabilityLogger,
                  model: str = "gpt-4o-mini", temperature: float = 0.3,
-                 max_tokens: int = 1000, max_attempts: int = 2):
+                 max_tokens: int = 1000, max_attempts: int = 2) -> None:
         """Initialize the Risk Analyst Agent
 
         Args:
@@ -274,7 +275,7 @@ class RiskAnalystAgent:
                           error=last_error, attempts=self.max_attempts, usage=call_usage)
         raise ValueError(f"Failed to parse Risk Analyst JSON output: {last_error}") from last_error
 
-    def _call_llm(self, messages: List[Dict[str, str]]):
+    def _call_llm(self, messages: List[Dict[str, str]]) -> ChatCompletion:
         """Send the conversation to the chat completions API"""
         return self.client.chat.completions.create(
             model=self.model,
@@ -474,7 +475,7 @@ class RiskAnalystAgent:
 
 # ===== PROMPT ENGINEERING HELPERS =====
 
-def create_chain_of_thought_framework():
+def create_chain_of_thought_framework() -> Dict[str, str]:
     """Helper function showing Chain-of-Thought structure
 
     The agent's system prompt expands each of these steps with the guiding
@@ -495,7 +496,7 @@ def create_chain_of_thought_framework():
         "step_5": "Classification Decision - Determine final category"
     }
 
-def get_classification_categories():
+def get_classification_categories() -> Dict[str, str]:
     """Standard SAR classification categories used in the agent's prompt"""
     return {
         "Structuring": "Transactions designed to avoid reporting thresholds",
@@ -507,7 +508,8 @@ def get_classification_categories():
 
 # ===== TESTING UTILITIES =====
 
-def test_agent_with_sample_case(openai_client=None, model: str = "gpt-4o-mini"):
+def test_agent_with_sample_case(openai_client: Optional[openai.OpenAI] = None,
+                                model: str = "gpt-4o-mini") -> RiskAnalystOutput:
     """Test the agent with a sample structuring case
 
     Builds a three-day run of cash deposits just under $10,000, analyzes it

@@ -17,9 +17,13 @@ Usage:
 """
 
 import json
-from typing import Dict, List, Any, Optional
+from typing import TYPE_CHECKING, Dict, List, Any, Optional
 from datetime import datetime, timedelta
 import random
+
+if TYPE_CHECKING:
+    from risk_analyst_agent import RiskAnalystAgent
+    from compliance_officer_agent import ComplianceOfficerAgent
 
 # Import foundation components (will work after students implement them)
 try:
@@ -47,7 +51,8 @@ class RiskAnalystScenarios:
     and edge cases that students' agents should handle correctly.
     """
     
-    def __init__(self):
+    def __init__(self) -> None:
+        """Load the five pre-built risk analysis scenarios"""
         self.scenarios = self._create_test_scenarios()
         
     def _create_test_scenarios(self) -> Dict[str, Dict[str, Any]]:
@@ -352,7 +357,7 @@ class RiskAnalystScenarios:
         
         return case_data
     
-    def run_scenario_test(self, agent, scenario_name: str) -> Dict[str, Any]:
+    def run_scenario_test(self, agent: 'RiskAnalystAgent', scenario_name: str) -> Dict[str, Any]:
         """Run a single scenario test against a Risk Analyst Agent"""
         if not FOUNDATION_AVAILABLE:
             return {"error": "Foundation components not available"}
@@ -400,7 +405,7 @@ class RiskAnalystScenarios:
                 "overall_pass": False
             }
     
-    def run_all_scenarios(self, agent) -> Dict[str, Any]:
+    def run_all_scenarios(self, agent: 'RiskAnalystAgent') -> Dict[str, Any]:
         """Run all scenario tests against a Risk Analyst Agent"""
         results = {}
         
@@ -453,7 +458,8 @@ class ComplianceOfficerScenarios:
     across different suspicious activity types and regulatory requirements.
     """
     
-    def __init__(self):
+    def __init__(self) -> None:
+        """Load the four pre-built compliance narrative scenarios"""
         self.scenarios = self._create_compliance_scenarios()
     
     def _create_compliance_scenarios(self) -> Dict[str, Dict[str, Any]]:
@@ -594,7 +600,7 @@ class ComplianceOfficerScenarios:
             "structure_score": sum([has_dollar_amount, has_customer_ref, has_activity_ref]) / 3
         }
     
-    def run_scenario_test(self, agent, scenario_name: str) -> Dict[str, Any]:
+    def run_scenario_test(self, agent: 'ComplianceOfficerAgent', scenario_name: str) -> Dict[str, Any]:
         """Run a single compliance scenario test"""
         if not FOUNDATION_AVAILABLE:
             return {"error": "Foundation components not available"}
@@ -644,7 +650,7 @@ class ComplianceOfficerScenarios:
                 "overall_pass": False
             }
     
-    def run_all_scenarios(self, agent) -> Dict[str, Any]:
+    def run_all_scenarios(self, agent: 'ComplianceOfficerAgent') -> Dict[str, Any]:
         """Run all compliance scenario tests"""
         results = {}
         
@@ -687,15 +693,16 @@ class ComplianceOfficerScenarios:
 
 
 # Convenience functions for easy import and use
-def get_risk_analyst_scenarios():
+def get_risk_analyst_scenarios() -> RiskAnalystScenarios:
     """Get Risk Analyst test scenarios instance"""
     return RiskAnalystScenarios()
 
-def get_compliance_officer_scenarios():
+def get_compliance_officer_scenarios() -> ComplianceOfficerScenarios:
     """Get Compliance Officer test scenarios instance"""
     return ComplianceOfficerScenarios()
 
-def run_quick_agent_test(risk_agent, compliance_agent=None):
+def run_quick_agent_test(risk_agent: Optional['RiskAnalystAgent'],
+                         compliance_agent: Optional['ComplianceOfficerAgent'] = None) -> Dict[str, Any]:
     """Run a quick test on both agents with key scenarios"""
     results = {}
     
