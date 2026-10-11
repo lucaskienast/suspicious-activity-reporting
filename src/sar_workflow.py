@@ -32,7 +32,7 @@ import time
 import uuid
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Literal, Optional, Tuple
 
 import pandas as pd
 from pydantic import BaseModel, Field
@@ -47,6 +47,10 @@ except ImportError:
         CaseData, RiskAnalystOutput, ComplianceOfficerOutput, ExplainabilityLogger, DataLoader
     )
     from agent_utils import CTR_THRESHOLD, NEAR_THRESHOLD_FLOOR
+
+if TYPE_CHECKING:
+    from .risk_analyst_agent import RiskAnalystAgent
+    from .compliance_officer_agent import ComplianceOfficerAgent
 
 try:
     from IPython.core.error import StdinNotImplementedError
@@ -185,6 +189,7 @@ class ReviewDecision(BaseModel):
 
     @property
     def approved(self) -> bool:
+        """True when the reviewer approved this gate"""
         return self.decision == 'approve'
 
 
@@ -206,7 +211,17 @@ class HumanReviewGate:
     def __init__(self, logger: ExplainabilityLogger, reviewer_id: str,
                  mode: Literal['interactive', 'simulated_policy'] = 'interactive',
                  input_fn: Callable[[str], str] = input, output_fn: Callable[[str], None] = print,
-                 min_confidence: float = 0.7):
+                 min_confidence: float = 0.7) -> None:
+        """Create a review gate
+
+        Args:
+            logger: Audit logger for decision records
+            reviewer_id: Identifier recorded with each decision
+            mode: 'interactive' prompts the reviewer; 'simulated_policy' applies the documented policy
+            input_fn: Reads reviewer answers (injectable for tests and demos)
+            output_fn: Displays review cards and prompts
+            min_confidence: Policy threshold for escalating High/Critical findings
+        """
         if mode not in ('interactive', 'simulated_policy'):
             raise ValueError(f"Unknown review mode '{mode}' - use 'interactive' or 'simulated_policy'")
         self.logger = logger
@@ -286,6 +301,7 @@ class HumanReviewGate:
     # ----- review cards -----
 
     def format_risk_review_card(self, case_data: CaseData, risk_analysis: RiskAnalystOutput) -> str:
+        """Gate 1 card: subject, activity, the AI finding and the policy guidance"""
         customer = case_data.customer
         dates = [txn.transaction_date for txn in case_data.transactions]
         recommendation, reason = self.policy_drafting_decision(risk_analysis)
@@ -309,6 +325,7 @@ class HumanReviewGate:
 
     def format_narrative_review_card(self, case_data: CaseData, risk_analysis: RiskAnalystOutput,
                                      compliance_output: ComplianceOfficerOutput, validation: Dict[str, Any]) -> str:
+        """Gate 2 card: the narrative, citations, validation results and the policy guidance"""
         recommendation, reason = self.policy_filing_decision(compliance_output, validation)
         return "\n".join([
             "═" * 78,
@@ -329,6 +346,7 @@ class HumanReviewGate:
 
     def _decide(self, gate: GateName, case_id: str, card: str, policy: Tuple[str, str],
                 context: Dict[str, Any]) -> ReviewDecision:
+        """Obtain a decision (reviewer prompt or policy), record it and write it to the audit trail"""
         start_time = time.perf_counter()
         source = self.mode
         if self.mode == 'interactive':
@@ -547,9 +565,22 @@ class SARWorkflow:
         records: CaseRecord for every processed alert
     """
 
-    def __init__(self, risk_agent, compliance_agent, review_gate: HumanReviewGate,
-                 data_loader: DataLoader, logger: ExplainabilityLogger, sar_output_dir: str,
-                 run_id: Optional[str] = None, institution: Optional[Dict[str, str]] = None):
+    def __init__(self, risk_agent: 'RiskAnalystAgent', compliance_agent: 'ComplianceOfficerAgent',
+                 review_gate: HumanReviewGate, data_loader: DataLoader, logger: ExplainabilityLogger,
+                 sar_output_dir: str, run_id: Optional[str] = None,
+                 institution: Optional[Dict[str, str]] = None) -> None:
+        """Assemble the workflow
+
+        Args:
+            risk_agent: Stage 1 Chain-of-Thought Risk Analyst
+            compliance_agent: Stage 2 ReACT Compliance Officer
+            review_gate: Human review gates between and after the agents
+            data_loader: Builds validated cases from raw records
+            logger: Audit logger shared by every component
+            sar_output_dir: Directory for filed SAR documents
+            run_id: Run identifier (defaults to the start timestamp)
+            institution: Filing institution details for SAR documents
+        """
         self.risk_agent = risk_agent
         self.compliance_agent = compliance_agent
         self.review_gate = review_gate
@@ -714,6 +745,7 @@ def compute_workflow_metrics(records: List[CaseRecord], audit_entries: List[Dict
     pricing = pricing or DEFAULT_PRICING
 
     def count(status: CaseStatus) -> int:
+        """Number of cases that ended in the given status"""
         return sum(record.status == status for record in records)
 
     # ----- per-agent cost and latency from the audit trail -----

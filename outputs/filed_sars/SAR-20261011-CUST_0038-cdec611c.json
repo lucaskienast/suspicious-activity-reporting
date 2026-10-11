@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0038-57ce3520",
+    "sar_id": "SAR-20261011-CUST_0038-cdec611c",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T11:17:47.646903+00:00",
+    "prepared_at": "2026-10-11T12:33:10.396466+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "98ac9dce-ea18-47eb-8af9-4184cb90897f",
-    "workflow_run_id": "20261011_121517",
+    "case_id": "3885d8a5-dc80-46fc-b732-774aab62e2a6",
+    "workflow_run_id": "20261011_133024",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "9e10d7459a0a714c478c5b97bf96d85c74b98d9f0c115d02f09f82baf2b24a50"
+    "document_checksum": "d0d2b21e955f69bde1b3911ee7b9d5f8ca6f87ac89716fda61aa09b8487cc54b"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -110,8 +110,7 @@
     ],
     "key_indicators": [
       "4 cash transactions totaling $22,511.27 on 2025-08-01",
-      "$7,404.03 cash deposit on 2025-08-01",
-      "11 cash transactions totaling $39,605.11 across 4 locations"
+      "3 cash deposits totaling $15,895.02 during review period"
     ],
     "screening_signals": [
       "cash_velocity",
@@ -119,8 +118,8 @@
     ]
   },
   "narrative": {
-    "text": "On 2025-08-01, Shannon Johnston (CUST_0038), a designer, conducted multiple cash transactions totaling $39,605.11 across four locations, including a cash deposit of $7,404.03. This activity is consistent with structuring under 31 USC 5324, as it involved four cash transactions exceeding $10,000 in one day, suggesting an attempt to evade Currency Transaction Report requirements. The total cash activity from 2025-02-05 to 2025-08-03 amounted to $135,876.80, significantly exceeding her reported annual income of $154,343, indicating a high-risk profile.",
-    "word_count": 75,
+    "text": "On August 1, 2025, Shannon Johnston (CUST_0038), a designer with an annual income of $154,343, conducted 4 cash transactions totaling $22,511.27 at 3 different locations. During the review period from February 5 to August 3, 2025, she made 3 cash deposits totaling $15,895.02, indicating a pattern of cash activity inconsistent with her income level. This activity is consistent with potential structuring under 31 USC 5324, as it appears to be an attempt to evade CTR reporting requirements.",
+    "word_count": 77,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -131,11 +130,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Shannon has a medium risk rating and significant cash activity. Pattern: Multiple cash deposits and withdrawals exceeding $10,000 on 2025-08-01. Mapping: Evidence supports Structuring due to attempts to evade CTR reporting. Risk: High due to significant cash volume relative to income. Decision: Structuring is the most applicable category."
+      "reasoning": "Profile: Customer has a high income and significant cash activity. Pattern: Multiple cash transactions on 2025-08-01 totaling over $22k. Mapping: Cash activity suggests structuring to evade CTR. Risk: High cash volume relative to income. Decision: Structuring is the most supported category."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash transactions, the date of activity, the locations involved, and the rationale for suspicion based on structuring indicators."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash transactions, the timeframe, locations, and the rationale for suspicion based on income and transaction patterns."
     }
   },
   "human_review": [
@@ -145,20 +144,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:17:43.152623+00:00"
+      "decided_at": "2026-10-11T12:33:06.133886+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (75 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (77 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:17:47.646494+00:00"
+      "decided_at": "2026-10-11T12:33:10.396014+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
-    "case_id": "98ac9dce-ea18-47eb-8af9-4184cb90897f",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
+    "case_id": "3885d8a5-dc80-46fc-b732-774aab62e2a6",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

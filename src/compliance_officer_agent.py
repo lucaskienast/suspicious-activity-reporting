@@ -196,9 +196,9 @@ class ComplianceOfficerAgent:
         usage_totals: Cumulative token usage and call counts across all narratives
     """
 
-    def __init__(self, openai_client, explainability_logger: ExplainabilityLogger,
+    def __init__(self, openai_client: openai.OpenAI, explainability_logger: ExplainabilityLogger,
                  model: str = "gpt-4o-mini", temperature: float = 0.2,
-                 max_tokens: int = 800, max_attempts: int = 3):
+                 max_tokens: int = 800, max_attempts: int = 3) -> None:
         """Initialize the Compliance Officer Agent
 
         Args:
@@ -728,7 +728,7 @@ class ComplianceOfficerAgent:
 
 # ===== REACT PROMPTING HELPERS =====
 
-def create_react_framework():
+def create_react_framework() -> Dict[str, List[str]]:
     """Helper function showing ReACT structure
 
     The agent's system prompt expands these phases into THOUGHT 1-3 and
@@ -762,7 +762,7 @@ def create_react_framework():
         ]
     }
 
-def get_regulatory_requirements():
+def get_regulatory_requirements() -> Dict[str, Any]:
     """Key regulatory requirements for SAR narratives used in the agent's prompt"""
     return {
         "word_limit": WORD_LIMIT,
@@ -788,7 +788,8 @@ def get_regulatory_requirements():
 
 # ===== TESTING UTILITIES =====
 
-def test_narrative_generation(openai_client=None, model: str = "gpt-4o-mini"):
+def test_narrative_generation(openai_client: Optional[openai.OpenAI] = None,
+                              model: str = "gpt-4o-mini") -> ComplianceOfficerOutput:
     """Test the agent with a sample structuring case and risk analysis
 
     Builds a client from OPENAI_API_KEY when none is passed (Vocareum

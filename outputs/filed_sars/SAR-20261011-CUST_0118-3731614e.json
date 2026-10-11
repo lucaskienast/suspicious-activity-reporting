@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0118-f3432cd5",
+    "sar_id": "SAR-20261011-CUST_0118-3731614e",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T11:16:40.127223+00:00",
+    "prepared_at": "2026-10-11T12:31:54.769122+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "ccff6f15-783e-47a5-af69-dd172d84b914",
-    "workflow_run_id": "20261011_121517",
+    "case_id": "26cc7641-2d4f-4453-9bf7-90c1efdc7ab8",
+    "workflow_run_id": "20261011_133024",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "3c824cd218240d269e3568bea5400715c43e5c209f0cf0887876b3b6c00d3a19"
+    "document_checksum": "552fed55408cc2f1aaa265efb8ea7881afc7e9503ef2c0ba4dd25c694d71140a"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -161,8 +161,8 @@
     ],
     "key_indicators": [
       "Multiple cash deposits on 2025-08-02 totaling $23,404.96",
-      "4 cash transactions exceeding $10,000 on 2025-08-02",
-      "8 transactions posted to closed accounts",
+      "15 cash/ATM transactions totaling $60,853.46",
+      "8 transactions posted to a closed account",
       "6 transactions with contradictory descriptions"
     ],
     "screening_signals": [
@@ -173,8 +173,8 @@
     ]
   },
   "narrative": {
-    "text": "On August 2, 2025, Patrick Williams (CUST_0118), a midwife, conducted multiple cash deposits totaling $23,404.96 across various branches, including four transactions exceeding $10,000. This activity, along with eight transactions posted to closed accounts and six transactions with contradictory descriptions, is consistent with structuring under 31 USC 5324 to evade Currency Transaction Report requirements. The total transaction volume of $222,070.26 over the period from February 5, 2025, to August 4, 2025, is 2.1 times his reported annual income, indicating a high-risk profile.",
-    "word_count": 81,
+    "text": "Patrick Williams (CUST_0118), a midwife, exhibited suspicious activity consistent with structuring under 31 USC 5324. Between 2025-02-05 and 2025-08-04, he conducted 79 transactions totaling $222,070.26, including multiple cash deposits on 2025-08-02 amounting to $23,404.96. Notably, 15 cash/ATM transactions totaled $60,853.46, with 8 transactions posted to a closed account and 6 transactions with contradictory descriptions, indicating an attempt to evade Currency Transaction Report thresholds.",
+    "word_count": 63,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -185,11 +185,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has high transaction volume relative to income. Pattern: Multiple cash deposits on 2025-08-02 totaling $23,404.96. Mapping: Evidence of structuring to evade CTR. Risk: High due to significant cash activity. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Midwife with $104,667 income; Activity: $222,070.26 in 6 months. Pattern: Multiple cash deposits on 2025-08-02 totaling $23,404.96. Mapping: Structuring due to cash deposits evading CTR. Risk: High due to significant cash activity. Decision: Structuring is the most supported category."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the date of the transactions, the locations involved, and the reasons for suspicion based on structuring indicators."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and volume of transactions, the timeframe, the locations involved, and the reasons for suspicion, all aligning with the Risk Analyst's findings."
     }
   },
   "human_review": [
@@ -199,20 +199,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:16:35.563069+00:00"
+      "decided_at": "2026-10-11T12:31:49.174572+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (81 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:16:40.126797+00:00"
+      "decided_at": "2026-10-11T12:31:54.768724+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
-    "case_id": "ccff6f15-783e-47a5-af69-dd172d84b914",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
+    "case_id": "26cc7641-2d4f-4453-9bf7-90c1efdc7ab8",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

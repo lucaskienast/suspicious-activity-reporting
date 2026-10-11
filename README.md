@@ -76,12 +76,12 @@ This section documents the implemented system and every customisation beyond the
 - **`src/test_scenarios.py` fixed.** It now matches the schemas (`transaction_date`, `method`, `case_created_at`/`data_sources`), and the compliance scenarios use real scenario cases.
 
 ### Results (latest live run, `gpt-4o-mini`)
-- **Risk Analyst:** 5/5 synthetic scenarios correct across all five categories. In the workflow, classifications agree 90% with the screening typology.
-- **Compliance Officer:** 4/4 compliance scenarios pass. Workflow narratives are 100% complete, within 120 words (67 on average), and checked for accuracy against the case data.
+- **Risk Analyst:** 5/5 synthetic scenarios correct across all five categories, with risk levels matching in 5/5. In the workflow, classifications agree 100% with the screening typology.
+- **Compliance Officer:** 4/4 compliance scenarios pass. Workflow narratives are 100% complete, 100% within 120 words (66 on average), and checked for accuracy against the case data.
 - **Workflow:**
-  - 119 customers screened → 25 alerts → 18 approved for drafting → 18 SARs filed.
-  - 7 alerts were closed at Gate 1 with a documented rationale.
-  - Cost was about $0.002 per filed SAR, 82% less than running both agents on every customer.
+  - 119 customers screened → 25 alerts → 20 approved for drafting → 20 SARs filed.
+  - 5 alerts were closed at Gate 1 with a documented rationale.
+  - Cost was about $0.0018 per filed SAR, 81% less than running both agents on every customer.
 - **Tests:** `python -m pytest tests/` gives **46 passed**: the 30 provided tests, 13 workflow tests and 3 revision-loop tests.
 
 ### Running the workflow

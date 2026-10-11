@@ -11,9 +11,12 @@ __version__ = "1.0.0"
 __author__ = "Udacity Student"
 
 import os
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
-def create_vocareum_openai_client():
+if TYPE_CHECKING:
+    import openai
+
+def create_vocareum_openai_client() -> "openai.OpenAI":
     """
     Create an OpenAI client configured for Vocareum routing.
     
@@ -69,7 +72,7 @@ def resolve_openai_base_url(api_key: str) -> Optional[str]:
     return os.getenv('OPENAI_BASE_URL') or (VOCAREUM_BASE_URL if api_key.startswith('voc-') else None)
 
 
-def create_openai_client():
+def create_openai_client() -> "openai.OpenAI":
     """
     Create an OpenAI client for either a Vocareum key or a standard OpenAI key.
 

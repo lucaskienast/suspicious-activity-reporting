@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0074-e6b179d0",
+    "sar_id": "SAR-20261011-CUST_0074-dd461962",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T11:17:17.248226+00:00",
+    "prepared_at": "2026-10-11T12:32:31.499373+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "40cc006a-06eb-4b8b-b766-f9ba516398bf",
-    "workflow_run_id": "20261011_121517",
+    "case_id": "c5d863a6-b523-4865-b040-484efba09f7b",
+    "workflow_run_id": "20261011_133024",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "1290049f8acfc450e409e3993e6a1ee287681f33fbc4d5afa2dcc5d76cbe8ee1"
+    "document_checksum": "6d7a67bd5eed252573a84f76d854316002301472083f8dcf96026a4eea5b09a4"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -150,9 +150,8 @@
     ],
     "key_indicators": [
       "5 cash deposits on 2025-08-02 totaling $23,115.30",
-      "Largest cash deposit of $7,577.57 on 2025-08-02",
-      "7 transactions posted to closed accounts",
-      "Descriptions contradict transaction types in 4 instances"
+      "14 cash transactions totaling $50,589.03 across 4 locations",
+      "7 transactions posted to closed accounts"
     ],
     "screening_signals": [
       "cash_velocity",
@@ -161,8 +160,8 @@
     ]
   },
   "narrative": {
-    "text": "On 2025-08-02, Grant Mueller (CUST_0074), a visual merchandiser, made five cash deposits totaling $23,115.30 across four locations, with the largest deposit being $7,577.57. This activity occurred within a broader period from 2025-02-06 to 2025-08-02, during which he conducted 44 transactions totaling $127,687.94, significantly exceeding his annual income of $71,438. The presence of seven transactions posted to closed accounts and four instances of contradictory transaction descriptions raise concerns consistent with structuring under 31 USC 5324.",
-    "word_count": 74,
+    "text": "On 2025-08-02, Grant Mueller (CUST_0074), a visual merchandiser, conducted 5 cash deposits totaling $23,115.30 across multiple branches, which is inconsistent with his annual income of $71,438. During the period from 2025-02-06 to 2025-08-02, he executed 44 transactions totaling $127,687.94, with 14 cash transactions amounting to $50,589.03. The activity included 7 transactions posted to closed accounts, indicating potential structuring to evade Currency Transaction Report requirements under 31 USC 5324.",
+    "word_count": 68,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -173,11 +172,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Grant has a medium risk rating and significant cash activity. Pattern: Multiple cash deposits on 2025-08-02 totaling $23,115.30, with the largest being $7,577.57. Mapping: This supports structuring as it avoids CTR thresholds. Risk: High due to repeated patterns and amounts relative to income. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Customer has significant cash activity inconsistent with income. Pattern: Multiple cash deposits on 2025-08-02 totaling $23,115.30. Mapping: Evidence supports structuring due to attempts to evade CTR. Risk: High volume of cash transactions across multiple locations. Decision: Structuring is the most fitting classification."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the timeframe, and the red flags indicating potential structuring."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the timeframe, the locations involved, and the rationale for suspicion based on structuring indicators."
     }
   },
   "human_review": [
@@ -187,20 +186,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:17:12.558478+00:00"
+      "decided_at": "2026-10-11T12:32:26.380210+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (74 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (68 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T11:17:17.247800+00:00"
+      "decided_at": "2026-10-11T12:32:31.498969+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
-    "case_id": "40cc006a-06eb-4b8b-b766-f9ba516398bf",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
+    "case_id": "c5d863a6-b523-4865-b040-484efba09f7b",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",
