@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0115-674010b7",
+    "sar_id": "SAR-20261011-CUST_0115-6066f26d",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:32:43.031592+00:00",
+    "prepared_at": "2026-10-11T18:03:02.908019+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "dd1eb053-1407-49b8-8489-0b497e1e5f59",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "cdf85755-14e6-45bd-8690-3055a29b91f4",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "1e06a712aaf2f0f9a693154179613b68c416f9e7bb7582825cd78f7a6b3f09f6"
+    "document_checksum": "2c2d419d6c5cf396fe83f5abc6441c2361202acc6045ce4cd5ed32e38e008ec5"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -131,9 +131,9 @@
       }
     ],
     "key_indicators": [
-      "3 cash deposits on 2025-08-03 totaling $10,402.80",
-      "Largest cash deposit of $6,423.72 on 2025-08-02",
-      "Transactions posted to a closed account"
+      "5 cash deposits totaling $23,674.59",
+      "3 cash transactions on 08/03 totaling $10,402.80",
+      "All transactions posted to a closed account"
     ],
     "screening_signals": [
       "cash_velocity",
@@ -142,8 +142,8 @@
     ]
   },
   "narrative": {
-    "text": "Kevin Scott (CUST_0115), an engineering geologist, exhibited suspicious activity consistent with structuring under 31 USC 5324. Between 2025-08-01 and 2025-08-03, he made seven transactions totaling $28,454.37, including three cash deposits on 2025-08-03 amounting to $10,402.80 at three different locations. These transactions were posted to a closed account, which is indicative of structuring to evade CTR reporting requirements.",
-    "word_count": 57,
+    "text": "Kevin Scott (CUST_0115), an engineering geologist, engaged in suspicious activity from 2025-08-01 to 2025-08-03, with seven transactions totaling $28,454.37 at Branch_University_District, Branch_Northgate_Mall, Branch_Suburban_Center, Branch_Downtown_Main, Branch_Eastside_Center, and Branch_Airport_Terminal. The activity included five cash deposits totaling $23,674.59, with three cash transactions on 08/03 exceeding $10,000, all posted to a closed account. This pattern is consistent with structuring under 31 USC 5324, as it appears to evade reporting requirements.",
+    "word_count": 66,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -154,11 +154,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has a high income and closed account. Pattern: 3 cash deposits on one day totaling $10,402.80, with multiple deposits across different locations. Mapping: Evidence suggests structuring to evade CTR reporting. Risk: High due to significant cash activity relative to income. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Customer has high income and closed account. Pattern: 5 cash deposits totaling $23,674.59, with 3 transactions on 08/03 exceeding $10,000. Mapping: Evidence supports structuring, ruled out sanctions, fraud, and money laundering. Risk: High due to significant cash activity inconsistent with profile. Decision: Structuring classification."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was revised to focus on the specific transactions and the indicators of structuring without implying intent or legitimacy."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature of the transactions, the timeframe, specific locations, and the rationale for suspicion based on the Risk Analyst's findings."
     }
   },
   "human_review": [
@@ -168,20 +168,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:35.989994+00:00"
+      "decided_at": "2026-10-11T18:02:56.071927+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (57 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (66 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:43.031281+00:00"
+      "decided_at": "2026-10-11T18:03:02.907772+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "dd1eb053-1407-49b8-8489-0b497e1e5f59",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "cdf85755-14e6-45bd-8690-3055a29b91f4",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

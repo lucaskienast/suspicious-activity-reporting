@@ -25,6 +25,7 @@ How it works:
 
 import re
 import time
+from collections import Counter
 import openai
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
@@ -91,8 +92,14 @@ _TIMEFRAME_PATTERN = re.compile(
     r"during|period|daily|weekly)\b", re.IGNORECASE)
 _AMOUNT_PATTERN = re.compile(r"\$\s?\d")
 _ACTIVITY_PATTERN = re.compile(r"deposit|withdraw|transfer|wire|transaction|payment|purchase", re.IGNORECASE)
-_LOCATION_PATTERN = re.compile(
-    r"branch|location|online|atm|jurisdiction|offshore|country|account|mobile|via ", re.IGNORECASE)
+# WHERE must be named: generic phrases such as "across three locations" or "multiple branches" do not count.
+# A specific channel is a valid WHERE (FinCEN narrative guidance: branch, channel, account or jurisdiction).
+_CHANNEL_PATTERN = re.compile(r"\b(atm|online|internet banking|mobile|wire|ach|teller)\b", re.IGNORECASE)
+# Fallback when no case data is available: a branch/account identifier or a capitalised branch name
+_NAMED_LOCATION_PATTERN = re.compile(
+    r"\bBranch_\w+|\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)*\s[Bb]ranch(?:es)?\b|\b[A-Z]+_\w*ACC\w*\b")
+# Location values too generic to count as a name on their own
+_GENERIC_LOCATION_NAMES = {'local', 'online', 'ach', 'atm', 'branch', 'unknown', 'main'}
 _SUSPICION_PATTERN = re.compile(
     r"suspicious|structur|launder|layering|fraud|sanction|ofac|evade|avoid|inconsistent|"
     r"unusual|indicat|red flag|threshold", re.IGNORECASE)
@@ -126,7 +133,7 @@ ReACT FRAMEWORK - work in two phases, keeping each step to 1-2 sentences:
 REASONING PHASE (think before writing)
 THOUGHT 1 - Review findings: What did the Risk Analyst conclude, and which case facts support it?
 THOUGHT 2 - Regulatory requirements: Which statutes and filing obligations apply to this typology?
-THOUGHT 3 - Narrative plan: The facts for WHO (subject name with customer ID, occupation), WHAT (activity type, amounts, count), WHEN (dates or date range), WHERE (branches, channels, accounts or jurisdictions) and WHY (red flags and why the activity is suspicious).
+THOUGHT 3 - Narrative plan: The facts for WHO (subject name with customer ID, occupation), WHAT (activity type, amounts, count), WHEN (dates or date range), WHERE (the named branches, account IDs, channels such as ATM or wire, or jurisdictions - never just "several locations") and WHY (red flags and why the activity is suspicious).
 
 ACTION PHASE (produce the filing)
 ACTION 1 - Draft: Write the narrative using only the facts from your plan.
@@ -136,6 +143,7 @@ ACTION 3 - Finalize: Output the JSON result.
 NARRATIVE REQUIREMENTS
 - Word limit: at most 120 words (aim for 80-110), written as one paragraph of plain prose - no bullet points or headings.
 - Cover all five elements: WHO, WHAT, WHEN, WHERE, WHY.
+- Name the WHERE explicitly: the specific branches (e.g. "at the Northgate Mall and Westside Plaza branches"), the account ID (e.g. "CUST_0053_ACC_3"), the channel (ATM, wire, ACH, online) or the jurisdiction. "Across several locations" or "multiple branches" is not sufficient.
 - Identify the subject by name with customer ID in parentheses, e.g. "Tracy Lewis (CUST_0053)".
 - Quote figures and dates exactly as given in the ACTIVITY SUMMARY, the analyst's key indicators or the transaction list (e.g. "$67,569.06", "between 2025-07-25 and 2025-07-31"). Do not calculate new totals or ranges, distinguish individual amounts from totals, and never invent facts.
 - Describe only the typology the Risk Analyst classified - do not suggest additional typologies.
@@ -384,8 +392,12 @@ class ComplianceOfficerAgent:
 
     @staticmethod
     def _revision_reasons(validation: Dict[str, Any], risk_analysis: RiskAnalystOutput) -> List[str]:
-        """Validation findings the model can fix by rewording (not missing facts)"""
+        """Validation findings the model can fix by rewording with facts it already has"""
         reasons = []
+        if not validation.get('elements', {}).get('where', True):
+            examples = validation.get('where_candidates', [])[:4]
+            reasons.append("missing WHERE - no specific branch, account ID, channel or jurisdiction named"
+                           + (f" (case facts include: {', '.join(examples)})" if examples else ""))
         if validation.get('speculative_terms'):
             reasons.append(f"speculative language {validation['speculative_terms']}")
         if validation.get('other_typologies'):
@@ -397,9 +409,10 @@ class ComplianceOfficerAgent:
         """ReACT observation asking for a reworded narrative"""
         return (
             f"OBSERVATION: compliance validation flagged the narrative - {'; '.join(reasons)}.\n\n"
-            f"Revise the narrative: describe only the observed activity and why it is consistent with "
-            f"{risk_analysis.classification}. Remove any statement about intent, legitimacy, illicit or criminal "
-            "conduct, or the source of funds, and do not mention other typologies. Keep every figure, date, "
+            f"Revise the narrative: name the WHERE explicitly (the specific branches, account ID or channel from "
+            f"the case facts, not \"several locations\"), describe only the observed activity and why it is "
+            f"consistent with {risk_analysis.classification}, remove any statement about intent, legitimacy, "
+            "illicit or criminal conduct, or the source of funds, and do not mention other typologies. Keep every figure, date, "
             "the subject identification and the citations. Reply with a one-line THOUGHT, then the corrected "
             "JSON in a ```json code block with the fields narrative, narrative_reasoning, "
             "regulatory_citations and completeness_check."
@@ -582,13 +595,19 @@ class ComplianceOfficerAgent:
         """Validate narrative meets regulatory requirements
 
         Hard requirements (all must hold for is_complete): word count within the
-        limit, WHO, WHAT, WHEN and WHY present, at least one citation, and no SSN
-        fragment.
+        limit, WHO, WHAT, WHEN, WHERE and WHY present, at least one citation, and
+        no SSN fragment.
+
+        WHERE must be named, as FinCEN narrative guidance requires: a branch or
+        jurisdiction recorded on the case's transactions (e.g. "Branch_Westside_Plaza"
+        or "Westside Plaza branch"), an account ID, or a specific channel (ATM, wire,
+        ACH, online, mobile, teller). Phrases like "across three locations" fail.
+        When the case records no transaction locations, the transaction method
+        (e.g. "cash") is the most specific WHERE available and is accepted.
 
         Warnings for the human reviewer (accuracy and tone, not completeness):
-        missing WHERE (online fraud may have no physical location), citations
-        outside the approved list, no BSA/AML terminology, dollar amounts that
-        cannot be traced to the case facts, typologies other than the analyst's
+        citations outside the approved list, no BSA/AML terminology, dollar amounts
+        that cannot be traced to the case facts, typologies other than the analyst's
         classification, and speculative language about intent or source of funds.
 
         Args:
@@ -605,17 +624,16 @@ class ComplianceOfficerAgent:
 
         if case_data is not None:
             subject_terms = [case_data.customer.name, case_data.customer.customer_id]
-            account_ids = [acc.account_id for acc in case_data.accounts]
             who = any(term.lower() in text for term in subject_terms)
         else:
-            account_ids = []
             who = bool(re.search(r"\b(customer|subject|account holder|client)\b", text))
+        where, where_candidates = self._check_where(narrative, case_data)
 
         elements = {
             'who': who,
             'what': bool(_AMOUNT_PATTERN.search(narrative)) and bool(_ACTIVITY_PATTERN.search(text)),
             'when': bool(_DATE_PATTERN.search(narrative)) or bool(_TIMEFRAME_PATTERN.search(text)),
-            'where': bool(_LOCATION_PATTERN.search(text)) or any(acc_id in narrative for acc_id in account_ids),
+            'where': where,
             'why': bool(_SUSPICION_PATTERN.search(text)),
         }
 
@@ -628,7 +646,7 @@ class ComplianceOfficerAgent:
         issues: List[str] = []
         if word_count > WORD_LIMIT:
             issues.append(f"narrative exceeds {WORD_LIMIT} word limit ({word_count} words)")
-        for element in ('who', 'what', 'when', 'why'):
+        for element in ('who', 'what', 'when', 'where', 'why'):
             if not elements[element]:
                 issues.append(f"missing {element.upper()} element")
         if not citations:
@@ -637,8 +655,6 @@ class ComplianceOfficerAgent:
             issues.append("narrative contains the SSN fragment")
 
         warnings: List[str] = []
-        if not elements['where']:
-            warnings.append("WHERE element not identified (branch, channel, account or jurisdiction)")
         if unrecognized:
             warnings.append(f"citations outside the approved list: {unrecognized}")
         if not terminology:
@@ -667,6 +683,7 @@ class ComplianceOfficerAgent:
             'regulatory_terms': terminology,
             'citation_count': len(citations),
             'unrecognized_citations': unrecognized,
+            'where_candidates': where_candidates,
             'ungrounded_amounts': ungrounded,
             'other_typologies': other_typologies,
             'speculative_terms': speculation,
@@ -674,6 +691,44 @@ class ComplianceOfficerAgent:
             'warnings': warnings,
             'is_complete': not issues
         }
+
+    @staticmethod
+    def _location_names(location: str) -> List[str]:
+        """Ways a recorded location can be named, e.g. 'Branch_Westside_Plaza' -> 'Westside Plaza'"""
+        names = [location]
+        readable = re.sub(r"(?i)^branch[_\s]+|[_\s]+branch$", "", location).replace('_', ' ').strip()
+        if readable and readable != location and len(readable) >= 3 \
+                and readable.lower() not in _GENERIC_LOCATION_NAMES:
+            names.append(readable)
+        return names
+
+    def _check_where(self, narrative: str, case_data: Optional[CaseData]) -> tuple:
+        """Whether the narrative names a specific WHERE, plus names it could use
+
+        Returns:
+            (where_present, candidate names from the case facts for revision guidance)
+        """
+        text = narrative.lower()
+        if case_data is None:
+            return bool(_NAMED_LOCATION_PATTERN.search(narrative) or _CHANNEL_PATTERN.search(text)), []
+
+        recorded = sorted({txn.location for txn in case_data.transactions if txn.location})
+        names = [name for location in recorded for name in self._location_names(location)]
+        account_ids = [acc.account_id for acc in case_data.accounts]
+        named = (any(re.search(rf"\b{re.escape(name.lower())}\b", text) for name in names)
+                 or any(acc_id.lower() in text for acc_id in account_ids)
+                 or bool(_CHANNEL_PATTERN.search(text)))
+        if not named and not recorded:
+            # No location recorded in the data: the transaction method is the most specific WHERE available
+            methods = {txn.method.lower() for txn in case_data.transactions}
+            named = any(re.search(rf"\b{re.escape(method)}\b", text) for method in methods)
+
+        # Suggest the locations of cash/wire activity first - that is where the suspicious activity happened
+        activity = Counter(txn.location for txn in case_data.transactions
+                           if txn.location and (is_cash_transaction(txn) or 'Wire' in txn.transaction_type))
+        ranked = sorted(recorded, key=lambda location: (-activity[location], location))
+        readable = [self._location_names(location)[-1] for location in ranked]
+        return named, readable + account_ids
 
     def _find_ungrounded_amounts(self, narrative: str, case_data: CaseData,
                                  risk_analysis: Optional[RiskAnalystOutput] = None) -> List[str]:
