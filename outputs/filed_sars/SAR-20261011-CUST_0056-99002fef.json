@@ -1,0 +1,175 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0056-99002fef",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:17:59.135739+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "a1bccd2d-21d5-409a-bea8-7ae644f3a6b7",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "9eb112a60b0bdb24ccfbd74e9dec4de1e11a0c86170b15f9c43021b89a4396cb"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Gloria Gomez",
+    "customer_id": "CUST_0056",
+    "date_of_birth": "1993-03-21",
+    "tin_last_4_masked": "XXX-XX-5331",
+    "address": "48434 Bush Spurs, Stewartstad, OH 95090",
+    "occupation": "Furniture conservator/restorer",
+    "annual_income": 173635,
+    "customer_since": "2023-11-25",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0056_ACC_1",
+        "customer_id": "CUST_0056",
+        "account_type": "Business_Checking",
+        "opening_date": "2025-07-02",
+        "current_balance": 60930.12,
+        "average_monthly_balance": 145914.12,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0056_ACC_2",
+        "customer_id": "CUST_0056",
+        "account_type": "Business_Checking",
+        "opening_date": "2024-04-10",
+        "current_balance": 59796.6,
+        "average_monthly_balance": 125743.8,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-30",
+      "end": "2025-08-01"
+    },
+    "flagged_transaction_count": 4,
+    "flagged_amount_total": 17266.88,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_AD61322C",
+        "account_id": "CUST_0056_ACC_1",
+        "transaction_date": "2025-07-30",
+        "transaction_type": "Cash_Deposit",
+        "amount": 7777.13,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "GEO_02C3C730",
+        "account_id": "CUST_0056_ACC_1",
+        "transaction_date": "2025-07-30",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 4492.06,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_B08129DD",
+        "account_id": "CUST_0056_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2980.09,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Airport_Terminal"
+      },
+      {
+        "transaction_id": "GEO_730A96F7",
+        "account_id": "CUST_0056_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2017.6,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      }
+    ],
+    "key_indicators": [
+      "2 cash deposits totaling $14,107.16",
+      "1 cash deposit of $7,777.13 on 2025-07-30",
+      "1 cash deposit of $6,330.03 on 2025-08-02",
+      "Busiest cash day with 2 transactions exceeding $10,000",
+      "3 transactions with contradictory descriptions"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "medium_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "Gloria Gomez (CUST_0056) exhibited suspicious activity consistent with structuring under 31 USC 5324. Between 2025-07-30 and 2025-08-02, she made two cash deposits of $7,777.13 and $6,330.03 at Branch_Southpark_Ave and Branch_Downtown_Main, respectively. The total cash deposits amounted to $14,107.16, with multiple transactions exceeding $10,000, indicating attempts to evade Currency Transaction Report requirements. Additionally, three transactions had contradictory descriptions, raising suspicion regarding the nature of the cash activity.",
+    "word_count": 66,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Gloria has a high transaction volume relative to income. Pattern: Two cash deposits near $10k and multiple cash transactions. Mapping: Evidence supports Structuring due to attempts to evade CTR reporting. Risk: High risk due to significant cash activity. Decision: Structuring is the most supported category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was revised to focus on the specific cash deposits made, the timeframe of the activity, the locations involved, and the reasons for suspicion based on structuring indicators, removing any speculative language."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:52.060741+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (66 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:17:59.135323+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "a1bccd2d-21d5-409a-bea8-7ae644f3a6b7",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

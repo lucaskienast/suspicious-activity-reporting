@@ -44,6 +44,55 @@ Your system will consist of **two specialized AI agents**:
 - **Cost**: Automated screening and documentation
 - **Risk**: Systematic detection prevents regulatory violations
 
+## ✅ Implementation Notes
+
+This section documents the implemented system and every customisation beyond the starter code.
+
+### Components
+
+| Module | Responsibility |
+|---|---|
+| `src/foundation_sar.py` | Pydantic schemas with business-rule validators, `ExplainabilityLogger` (JSONL audit trail) and `DataLoader` (per-customer cases from full CSV extracts) |
+| `src/risk_analyst_agent.py` | Chain-of-Thought Risk Analyst. A 5-step framework produces a validated `RiskAnalystOutput` |
+| `src/compliance_officer_agent.py` | ReACT Compliance Officer. A REASONING phase (THOUGHT 1-3) and an ACTION phase (draft → OBSERVATION → JSON) produce a ≤120-word SAR narrative |
+| `src/agent_utils.py` | Shared helpers: JSON extraction/repair, token accounting, and the pre-computed case activity summary used by both agents |
+| `src/sar_workflow.py` | Screening, human review gates, the two-stage workflow, SAR document generation (SHA-256 checksummed) and efficiency metrics |
+
+### Design decisions and customisations
+- **Schemas accept raw pandas records.** Empty CSV cells become `None`, and the int64 `ssn_last_4` column becomes a zero-padded string. Dates are strictly `YYYY-MM-DD`, `customer_since` cannot precede `date_of_birth`, and cases need at least one transaction and consistent account ownership.
+- **Grounded prompts.** Both agents receive pre-computed signals (near-threshold cash, CTR-reportable cash, busiest cash day, wire pass-through rate, closed-account activity), so the model interprets facts instead of doing arithmetic.
+- **LLM output is untrusted input.** JSON is extracted from prose or code fences, trailing commas are repaired, and formatting slips are normalised. Failures trigger a corrective retry that feeds the exact error back to the model. Every adjustment is written to the audit trail.
+- **Policy rules in code.** Sanctions findings are always `Critical`. Every narrative cites 31 CFR 1020.320 (the SAR filing requirement).
+- **Narrative validation is the authoritative observation.** The model's own word counts proved unreliable, so the code enforces:
+  - **Word limit:** narratives over 120 words are revised, then rejected.
+  - **Completeness:** the WHO/WHAT/WHEN/WHY elements, citations and no SSN, which can override `completeness_check`.
+  - **Accuracy:** it flags dollar amounts not traceable to the case data, off-typology mentions and speculative language. Speculation and off-typology mentions are sent back for revision.
+- **Human-in-the-loop.**
+  - **Gate 1** approves SAR drafting, so the Compliance Officer only runs on approved cases.
+  - **Gate 2** approves filing.
+  - **Modes:** `SAR_REVIEW_MODE=interactive` (the default) prompts the reviewer, and rejections require a rationale. `simulated_policy` applies a documented policy for unattended runs.
+  - Every decision records its `decision_source`.
+- **API keys.** `create_openai_client()` routes `voc-` keys through Vocareum and other keys to the standard OpenAI endpoint, without printing key material. The default model is `gpt-4o-mini` (override with `OPENAI_MODEL`).
+- **`src/test_scenarios.py` fixed.** It now matches the schemas (`transaction_date`, `method`, `case_created_at`/`data_sources`), and the compliance scenarios use real scenario cases.
+
+### Results (latest live run, `gpt-4o-mini`)
+- **Risk Analyst:** 5/5 synthetic scenarios correct across all five categories. In the workflow, classifications agree 90% with the screening typology.
+- **Compliance Officer:** 4/4 compliance scenarios pass. Workflow narratives are 100% complete, within 120 words (67 on average), and checked for accuracy against the case data.
+- **Workflow:**
+  - 119 customers screened → 25 alerts → 18 approved for drafting → 18 SARs filed.
+  - 7 alerts were closed at Gate 1 with a documented rationale.
+  - Cost was about $0.002 per filed SAR, 82% less than running both agents on every customer.
+- **Tests:** `python -m pytest tests/` gives **46 passed**: the 30 provided tests, 13 workflow tests and 3 revision-loop tests.
+
+### Running the workflow
+```bash
+# Interactive review (you decide at both gates; limited to the top 5 alerts)
+jupyter notebook notebooks/03_workflow_integration.ipynb
+
+# Unattended run of all alerts with the documented reviewer policy
+cd notebooks && SAR_REVIEW_MODE=simulated_policy jupyter nbconvert --to notebook --execute --inplace 03_workflow_integration.ipynb
+```
+
 ## 🚀 Getting Started
 
 ### Prerequisites

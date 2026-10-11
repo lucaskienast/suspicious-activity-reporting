@@ -1,0 +1,209 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0045-4e7b8f0d",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:16:31.986889+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "c101f457-9219-4064-993d-f8f11598ccdd",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "c7bad32907f799c254a4111615736b361464f7784f8749e32930f687affce67b"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Lucas Allen",
+    "customer_id": "CUST_0045",
+    "date_of_birth": "1970-10-30",
+    "tin_last_4_masked": "XXX-XX-2402",
+    "address": "88888 Peter Mountains Apt. 654, West Kristinastad, IA 96569",
+    "occupation": "Engineer, drilling",
+    "annual_income": 433150,
+    "customer_since": "2015-12-01",
+    "internal_risk_rating": "High",
+    "accounts": [
+      {
+        "account_id": "CUST_0045_ACC_1",
+        "customer_id": "CUST_0045",
+        "account_type": "Business_Checking",
+        "opening_date": "2023-06-16",
+        "current_balance": 39043.22,
+        "average_monthly_balance": 176901.62,
+        "status": "Closed"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-08-01",
+      "end": "2025-08-03"
+    },
+    "flagged_transaction_count": 8,
+    "flagged_amount_total": 36762.26,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_A49A0579",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5845.11,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Southpark_Ave"
+      },
+      {
+        "transaction_id": "GEO_F2455A95",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-01",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2042.07,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      },
+      {
+        "transaction_id": "GEO_8364A567",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 6810.9,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_8871E8B5",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 6688.35,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Suburban_Center"
+      },
+      {
+        "transaction_id": "GEO_1448EE32",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 6307.12,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_F28BF5D9",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 3986.53,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_36D04BA2",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2993.52,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_D46F5BD0",
+        "account_id": "CUST_0045_ACC_1",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 2088.66,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Financial_District"
+      }
+    ],
+    "key_indicators": [
+      "4 cash transactions on 2025-08-03 totaling $15,375.83",
+      "Multiple ATM withdrawals totaling $26,468.61 in 3 days",
+      "Transactions posted to a closed account"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "high_risk_rating",
+      "closed_account_activity"
+    ]
+  },
+  "narrative": {
+    "text": "On August 1-3, 2025, Lucas Allen (CUST_0045) conducted 8 transactions totaling $36,762.26, including 4 cash transactions on August 3 totaling $15,375.83 across 3 locations. Notably, he made multiple ATM withdrawals totaling $26,468.61 in 3 days, with all transactions posted to a closed account. This activity is consistent with structuring under 31 USC 5324, as it appears to be an attempt to evade Currency Transaction Report requirements.",
+    "word_count": 66,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has high income and closed account. Pattern: 4 cash transactions on 2025-08-03 totaling $15,375.83 across 3 locations. Mapping: Evidence supports Structuring due to attempts to evade CTR. Risk: High risk due to significant cash activity. Decision: Structuring is the most applicable category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and volume of transactions, the timeframe, the account involved, and the suspicious nature of the activity consistent with structuring."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:27.467194+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (66 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:31.986485+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "c101f457-9219-4064-993d-f8f11598ccdd",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

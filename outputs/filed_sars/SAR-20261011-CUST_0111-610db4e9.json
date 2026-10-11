@@ -1,0 +1,193 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0111-610db4e9",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:16:23.792351+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "52d70bcb-2fd9-40d7-ba92-99e887151357",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "3e6e373b2928f9ff50a6cd2d6c67bd75d0ec2a8f198c1e31861197939956d66a"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "date_of_birth": "2001-02-01",
+    "tin_last_4_masked": "XXX-XX-9067",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "occupation": "Conservation officer, historic buildings",
+    "annual_income": 306379,
+    "customer_since": "2022-02-27",
+    "internal_risk_rating": "High",
+    "accounts": [
+      {
+        "account_id": "CUST_0111_ACC_1",
+        "customer_id": "CUST_0111",
+        "account_type": "Business_Checking",
+        "opening_date": "2024-04-30",
+        "current_balance": 41311.26,
+        "average_monthly_balance": 186528.36,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0111_ACC_2",
+        "customer_id": "CUST_0111",
+        "account_type": "Checking",
+        "opening_date": "2022-06-13",
+        "current_balance": 92858.26,
+        "average_monthly_balance": 162196.36,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0111_ACC_3",
+        "customer_id": "CUST_0111",
+        "account_type": "Savings",
+        "opening_date": "2024-07-31",
+        "current_balance": 2343.44,
+        "average_monthly_balance": 65983.94,
+        "status": "Active"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-07-29",
+      "end": "2025-07-31"
+    },
+    "flagged_transaction_count": 5,
+    "flagged_amount_total": 126034.76,
+    "flagged_transactions": [
+      {
+        "transaction_id": "RAPID_DEF84D17",
+        "account_id": "CUST_0111_ACC_1",
+        "transaction_date": "2025-07-29",
+        "transaction_type": "Wire_Transfer_Credit",
+        "amount": 76517.25,
+        "description": "Incoming wire transfer",
+        "method": "Wire",
+        "counterparty": "Price-Dominguez",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_1EB57A34",
+        "account_id": "CUST_0111_ACC_1",
+        "transaction_date": "2025-07-30",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 8906.7,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Nash, Mueller and Russell",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_8500C5D8",
+        "account_id": "CUST_0111_ACC_1",
+        "transaction_date": "2025-07-30",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 12689.7,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Tran-Burns",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_076C6CE8",
+        "account_id": "CUST_0111_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 14019.62,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Terry-Rogers",
+        "location": null
+      },
+      {
+        "transaction_id": "RAPID_D2151EED",
+        "account_id": "CUST_0111_ACC_1",
+        "transaction_date": "2025-07-31",
+        "transaction_type": "Wire_Transfer_Debit",
+        "amount": 13901.49,
+        "description": "Outgoing wire transfer",
+        "method": "Wire",
+        "counterparty": "Anderson-Reed",
+        "location": null
+      }
+    ],
+    "key_indicators": [
+      "Incoming wire of $76,517.25 on 2025-07-29",
+      "4 outgoing wires totaling $40,000 within 2 days",
+      "65% of incoming wire value sent out quickly"
+    ],
+    "screening_signals": [
+      "rapid_movement",
+      "high_risk_rating"
+    ]
+  },
+  "narrative": {
+    "text": "On July 29, 2025, Jacqueline Rodriguez (CUST_0111) received an incoming wire transfer of $76,517.25 to her business checking account (CUST_0111_ACC_1). Within two days, she executed four outgoing wire transfers totaling $40,000, representing 65% of the incoming amount. This rapid pass-through activity, combined with her high-risk profile and significant transaction volume, is consistent with potential money laundering under 18 USC 1956.",
+    "word_count": 60,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "18 USC 1956 (Money laundering)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Jacqueline Rodriguez has a high income and significant transaction volume. Pattern: Large incoming wire of $76,517.25 followed by rapid outgoing wires totaling $40,000. Mapping: Evidence indicates potential money laundering due to pass-through activity. Risk: High risk due to significant amounts and rapid transactions. Decision: Classified as Money_Laundering."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and amounts of transactions, the timing of the activity, the account involved, and the suspicious nature of the rapid outgoing wires following a large incoming wire."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:19.193328+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (60 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:23.791674+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "52d70bcb-2fd9-40d7-ba92-99e887151357",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}

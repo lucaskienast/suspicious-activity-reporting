@@ -1,0 +1,229 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR-20261011-CUST_0118-f3432cd5",
+    "filing_type": "Initial report",
+    "form": "FinCEN Suspicious Activity Report (simulated)",
+    "prepared_at": "2026-10-11T11:16:40.127223+00:00",
+    "detection_date": "2026-10-11",
+    "filing_deadline": "2026-11-10",
+    "status": "approved_for_filing",
+    "case_id": "ccff6f15-783e-47a5-af69-dd172d84b914",
+    "workflow_run_id": "20261011_121517",
+    "ai_generated": true,
+    "schema_version": "1.0",
+    "document_checksum": "3c824cd218240d269e3568bea5400715c43e5c209f0cf0887876b3b6c00d3a19"
+  },
+  "filing_institution": {
+    "name": "Demo Community Bank (simulated institution)",
+    "institution_type": "Depository institution",
+    "primary_regulator": "OCC",
+    "filing_office": "BSA/AML Compliance Department"
+  },
+  "subject_information": {
+    "name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "date_of_birth": "1998-01-09",
+    "tin_last_4_masked": "XXX-XX-6860",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "occupation": "Midwife",
+    "annual_income": 104667,
+    "customer_since": "2021-09-05",
+    "internal_risk_rating": "Medium",
+    "accounts": [
+      {
+        "account_id": "CUST_0118_ACC_1",
+        "customer_id": "CUST_0118",
+        "account_type": "Checking",
+        "opening_date": "2022-12-27",
+        "current_balance": 88376.41,
+        "average_monthly_balance": 167493.31,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0118_ACC_2",
+        "customer_id": "CUST_0118",
+        "account_type": "Money_Market",
+        "opening_date": "2025-01-30",
+        "current_balance": 39703.03,
+        "average_monthly_balance": 111884.53,
+        "status": "Active"
+      },
+      {
+        "account_id": "CUST_0118_ACC_3",
+        "customer_id": "CUST_0118",
+        "account_type": "Business_Checking",
+        "opening_date": "2025-01-18",
+        "current_balance": 44426.53,
+        "average_monthly_balance": 204503.83,
+        "status": "Closed"
+      }
+    ]
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "activity_period": {
+      "start": "2025-08-02",
+      "end": "2025-08-04"
+    },
+    "flagged_transaction_count": 8,
+    "flagged_amount_total": 42687.31,
+    "flagged_transactions": [
+      {
+        "transaction_id": "GEO_1BDCA71D",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 7762.48,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_F0112C86",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "Cash_Deposit",
+        "amount": 6477.95,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_8A082B5A",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "Cash_Deposit",
+        "amount": 3301.03,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Westside_Plaza"
+      },
+      {
+        "transaction_id": "GEO_0D618AAF",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-02",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5863.5,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_48D2A513",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-03",
+        "transaction_type": "Cash_Deposit",
+        "amount": 7212.8,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Eastside_Center"
+      },
+      {
+        "transaction_id": "GEO_045A71D3",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-04",
+        "transaction_type": "Cash_Deposit",
+        "amount": 4543.83,
+        "description": "ATM transaction - deposit",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Northgate_Mall"
+      },
+      {
+        "transaction_id": "GEO_24F5CF54",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-04",
+        "transaction_type": "Cash_Deposit",
+        "amount": 2463.16,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      },
+      {
+        "transaction_id": "GEO_901FE29A",
+        "account_id": "CUST_0118_ACC_3",
+        "transaction_date": "2025-08-04",
+        "transaction_type": "ATM_Withdrawal",
+        "amount": 5062.56,
+        "description": "ATM transaction - withdrawal",
+        "method": "ATM",
+        "counterparty": null,
+        "location": "Branch_Downtown_Main"
+      }
+    ],
+    "key_indicators": [
+      "Multiple cash deposits on 2025-08-02 totaling $23,404.96",
+      "4 cash transactions exceeding $10,000 on 2025-08-02",
+      "8 transactions posted to closed accounts",
+      "6 transactions with contradictory descriptions"
+    ],
+    "screening_signals": [
+      "cash_velocity",
+      "medium_risk_rating",
+      "volume_vs_income",
+      "closed_account_activity"
+    ]
+  },
+  "narrative": {
+    "text": "On August 2, 2025, Patrick Williams (CUST_0118), a midwife, conducted multiple cash deposits totaling $23,404.96 across various branches, including four transactions exceeding $10,000. This activity, along with eight transactions posted to closed accounts and six transactions with contradictory descriptions, is consistent with structuring under 31 USC 5324 to evade Currency Transaction Report requirements. The total transaction volume of $222,070.26 over the period from February 5, 2025, to August 4, 2025, is 2.1 times his reported annual income, indicating a high-risk profile.",
+    "word_count": 81,
+    "regulatory_citations": [
+      "31 CFR 1020.320 (SAR filing requirement)",
+      "31 USC 5324 (Structuring)"
+    ],
+    "completeness_check": true,
+    "validation_warnings": []
+  },
+  "ai_analysis": {
+    "risk_analyst": {
+      "method": "Chain-of-Thought",
+      "reasoning": "Profile: Customer has high transaction volume relative to income. Pattern: Multiple cash deposits on 2025-08-02 totaling $23,404.96. Mapping: Evidence of structuring to evade CTR. Risk: High due to significant cash activity. Decision: Structuring is the most supported category."
+    },
+    "compliance_officer": {
+      "method": "ReACT",
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the date of the transactions, the locations involved, and the reasons for suspicion based on structuring indicators."
+    }
+  },
+  "human_review": [
+    {
+      "gate": "sar_drafting",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:35.563069+00:00"
+    },
+    {
+      "gate": "sar_filing",
+      "decision": "approve",
+      "reviewer_id": "compliance_reviewer_01",
+      "rationale": "Narrative complete (81 words, 2 citations) with no accuracy concerns",
+      "decision_source": "simulated_policy",
+      "decided_at": "2026-10-11T11:16:40.126797+00:00"
+    }
+  ],
+  "audit_trail": {
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_121517.jsonl",
+    "case_id": "ccff6f15-783e-47a5-af69-dd172d84b914",
+    "data_sources": {
+      "customer_source": "csv_extract_20261011",
+      "account_source": "csv_extract_20261011",
+      "transaction_source": "csv_extract_20261011"
+    },
+    "agents": [
+      "DataLoader",
+      "RiskAnalyst",
+      "HumanReviewer",
+      "ComplianceOfficer",
+      "HumanReviewer"
+    ]
+  }
+}
