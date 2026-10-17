@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0062-d07b9bb1",
+    "sar_id": "SAR-20261011-CUST_0062-8caff0c2",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:31:05.316581+00:00",
+    "prepared_at": "2026-10-11T18:01:10.393822+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "17f74401-f4cb-4ee8-8f31-b4a59cb89b63",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "ffb6fe5f-7819-45e6-bc29-3da5b0544046",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "19fa29cd871625451f8044c8874b44fcbcd13ed2bf57be61db96439671e2b68f"
+    "document_checksum": "85cd2c5a454a1fa4edd8a5c1c088ce04a924cf678c326249adcfe85235886032"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -127,9 +127,9 @@
       }
     ],
     "key_indicators": [
-      "Large incoming wire of $98,090.16 on 2025-07-27",
-      "73% of incoming wire value sent out within 2 days",
-      "Multiple outgoing wires totaling $71,182.08 to 4 distinct counterparties"
+      "Incoming wire of $98,090.16 on 2025-07-27",
+      "Outgoing wires totaling $71,182.08 to 4 distinct counterparties",
+      "73% of incoming wire value sent out within 2 days"
     ],
     "screening_signals": [
       "rapid_movement",
@@ -138,8 +138,8 @@
     ]
   },
   "narrative": {
-    "text": "On July 27, 2025, Michael Stanley (CUST_0062), an operational investment banker, received a large incoming wire transfer of $98,090.16 to his active money market account (CUST_0062_ACC_1). Within two days, he sent out multiple outgoing wires totaling $71,182.08 to four distinct counterparties. This rapid pass-through of funds, amounting to 73% of the incoming wire, is consistent with money laundering activities under 18 USC 1956.",
-    "word_count": 63,
+    "text": "On July 27, 2025, Michael Stanley (CUST_0062) received an incoming wire transfer of $98,090.16 to account CUST_0062_ACC_1. Within two days, he sent out $71,182.08 through four outgoing wire transfers to distinct counterparties. This pattern of a large incoming wire followed by rapid pass-through of funds is consistent with money laundering. The total transaction volume during the review period was $380,633.78, significantly exceeding his annual income of $128,868.",
+    "word_count": 67,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "18 USC 1956 (Money laundering)"
@@ -150,11 +150,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer is an investment banker with significant transactions. Pattern: Large incoming wire of $98,090.16 followed by multiple outgoing wires totaling $71,182.08. Mapping: Evidence supports money laundering due to rapid pass-through of funds. Risk: High risk due to amounts exceeding $100,000. Decision: Classified as Money_Laundering."
+      "reasoning": "Profile: Customer is an investment banker with high transaction volume. Pattern: Large incoming wire followed by rapid pass-through to multiple counterparties. Mapping: Evidence supports Money_Laundering due to obscured fund sources. Risk: High due to significant amounts involved. Decision: Classified as Money_Laundering."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject, transaction amounts, dates, account information, and the suspicious nature of the rapid fund transfers."
+      "narrative_reasoning": "The narrative was revised to focus exclusively on the money laundering activity observed, detailing the subject's identity, transaction amounts, timing, and the rationale for suspicion based on the transaction patterns."
     }
   },
   "human_review": [
@@ -164,20 +164,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:00.975243+00:00"
+      "decided_at": "2026-10-11T18:01:00.251570+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (67 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:05.316109+00:00"
+      "decided_at": "2026-10-11T18:01:10.393490+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "17f74401-f4cb-4ee8-8f31-b4a59cb89b63",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "ffb6fe5f-7819-45e6-bc29-3da5b0544046",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

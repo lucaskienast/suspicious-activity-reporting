@@ -36,6 +36,7 @@ from collections import Counter
 # ===== SHARED VALIDATION HELPERS =====
 
 DATE_FORMAT = "%Y-%m-%d"
+RISK_RATINGS = ('Low', 'Medium', 'High')         # Accepted CustomerData.risk_rating values
 _DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -135,8 +136,13 @@ class CustomerData(BaseModel):
     @field_validator('risk_rating', mode='before')
     @classmethod
     def normalize_risk_rating(cls, v: Any) -> Any:
-        """Accept case variants such as 'high' or ' HIGH ' for the risk rating."""
-        return v.strip().capitalize() if isinstance(v, str) else v
+        """Accept case variants such as 'high' or ' HIGH '; reject anything else by name."""
+        if not isinstance(v, str):
+            return v  # Non-strings fall through to the Literal check
+        normalized = v.strip().capitalize()
+        if normalized not in RISK_RATINGS:
+            raise ValueError(f"Invalid risk_rating '{v}': must be one of {', '.join(repr(r) for r in RISK_RATINGS)}")
+        return normalized
 
     @model_validator(mode='after')
     def check_relationship_dates(self) -> 'CustomerData':
@@ -345,8 +351,8 @@ class ExplainabilityLogger:
             agent_type: Component that acted - "DataLoader", "RiskAnalyst", "ComplianceOfficer"
             action: What it did - "create_case", "analyze_case", "generate_narrative"
             case_id: Case the action relates to
-            input_data: Summary of the inputs (stored as a string)
-            output_data: Summary of the outputs (stored as a string)
+            input_data: Summary of the inputs (stored as a JSON object)
+            output_data: Summary of the outputs (stored as a JSON object)
             reasoning: Explanation of the decision or failure
             execution_time_ms: Duration of the action in milliseconds
             success: Whether the action succeeded
@@ -354,14 +360,19 @@ class ExplainabilityLogger:
 
         Returns:
             The log entry that was recorded
+
+        The summaries are stored as JSON objects, not strings, so each line can be
+        queried directly (e.g. ``jq '.output_summary.classification'``). They are
+        copied through a JSON round trip, so the in-memory entry matches the file
+        exactly and later changes to the caller's dicts cannot alter the record.
         """
         entry = {
             'timestamp': datetime.now(timezone.utc).isoformat(),
             'case_id': case_id,
             'agent_type': agent_type,
             'action': action,
-            'input_summary': str(input_data),
-            'output_summary': str(output_data),
+            'input_summary': _to_json_object(input_data),
+            'output_summary': _to_json_object(output_data),
             'reasoning': reasoning,
             'execution_time_ms': execution_time_ms,
             'success': success,
@@ -373,6 +384,11 @@ class ExplainabilityLogger:
             f.write(json.dumps(entry, default=str) + '\n')
 
         return entry
+
+
+def _to_json_object(data: Any) -> Any:
+    """JSON-compatible copy of data; values json cannot encode are stored as strings"""
+    return json.loads(json.dumps(data, default=str))
 
 
 # ===== DATA LOADER =====

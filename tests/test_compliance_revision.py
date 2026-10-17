@@ -16,7 +16,7 @@ from src.foundation_sar import ExplainabilityLogger, DataLoader, RiskAnalystOutp
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 CLEAN = ("Tracy Lewis (CUST_0053) made seven cash deposits totaling $67,569.06 between 2025-07-25 and "
-         "2025-07-31 at five branches, consistent with structuring under 31 USC 5324.")
+         "2025-07-31 at the Southpark Ave and Westside Plaza branches, consistent with structuring under 31 USC 5324.")
 SPECULATIVE = CLEAN + " This raises concerns about the legitimacy of the funds."
 
 
@@ -70,7 +70,8 @@ def test_persistent_speculation_is_kept_with_warning(tmp_path, case, risk_analys
     agent, client, result = run_agent(tmp_path, case, risk_analysis, [SPECULATIVE] * 3)
     assert client.chat.completions.create.call_count == 3
     assert agent.last_validation['speculative_terms'] == ['legitimacy']
-    assert "still flagged after revision" in agent.logger.entries[-1]['output_summary']
+    normalizations = agent.logger.entries[-1]['output_summary']['normalizations']
+    assert any("still flagged after revision" in note for note in normalizations)
 
 
 def test_failed_revision_falls_back_to_valid_draft(tmp_path, case, risk_analysis):

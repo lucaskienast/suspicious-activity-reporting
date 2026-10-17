@@ -12,7 +12,7 @@ Generated SAR documents in JSON format. Each SAR includes:
 - Audit trail references
 
 ## 📊 audit_logs/
-Comprehensive audit trails in JSONL format capturing:
+Comprehensive audit trails in JSONL format (one JSON object per line; `input_summary` and `output_summary` are nested JSON objects) capturing:
 - Agent decisions and reasoning
 - Processing timestamps
 - Input/output data summaries
@@ -32,3 +32,13 @@ These outputs demonstrate the explainability and auditability required for regul
 | `audit_logs/phase1_case_creation_<run_id>.jsonl` | Phase 1 validation of case creation across the full CSV extract |
 
 `<run_id>` is the run's start time (`YYYYMMDD_HHMMSS`), so every SAR document's `workflow_run_id` points to its audit log.
+
+### Querying the audit trail
+
+```bash
+# Every human decision with its rationale
+jq -c 'select(.agent_type=="HumanReviewer") | {case_id, gate: .output_summary.gate, decision: .output_summary.decision, rationale: .reasoning}' audit_logs/sar_workflow_<run_id>.jsonl
+
+# Narrative word counts and WHERE checks
+jq -c 'select(.agent_type=="ComplianceOfficer" and .success) | {case_id, words: .output_summary.word_count, where: .output_summary.validation.elements.where}' audit_logs/sar_workflow_<run_id>.jsonl
+```

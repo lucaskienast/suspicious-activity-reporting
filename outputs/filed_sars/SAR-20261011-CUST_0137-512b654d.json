@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0137-41c7d21d",
+    "sar_id": "SAR-20261011-CUST_0137-512b654d",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:32:13.476527+00:00",
+    "prepared_at": "2026-10-11T18:02:29.772371+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "08e7644c-2791-403d-be53-5f8532731b89",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "8e3e4a55-b744-4ae2-ad58-a6ea590b1f1d",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "027b27bf21687b61ed5a850dd15711eeaf70bad7fe96af45a2e0b2ee1053a855"
+    "document_checksum": "c26c0d5242d4d983860752bf74d69f0d540181baca59befb67514d98bd0974ec"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -44,7 +44,7 @@
   "suspicious_activity": {
     "classification": "Structuring",
     "risk_level": "High",
-    "confidence_score": 0.85,
+    "confidence_score": 0.9,
     "activity_period": {
       "start": "2025-07-24",
       "end": "2025-07-26"
@@ -87,8 +87,7 @@
       }
     ],
     "key_indicators": [
-      "3 cash deposits of $9,168.52, $9,402.73, $9,547.22 between 2025-07-24 and 2025-07-26",
-      "Total cash deposits of $28,118.47 just under CTR threshold"
+      "3 cash deposits of $9,168.52, $9,402.73, and $9,547.22 between 2025-07-24 and 2025-07-26"
     ],
     "screening_signals": [
       "structuring",
@@ -96,8 +95,8 @@
     ]
   },
   "narrative": {
-    "text": "Regina Ramos (CUST_0137), a cartographer, conducted three cash deposits totaling $28,118.47 between 2025-07-24 and 2025-07-26 at Branch_Southpark_Ave and Branch_Financial_District. Each deposit was just under the $10,000 threshold, indicating a pattern consistent with structuring under 31 USC 5324 to evade reporting requirements. The total cash deposits were made within a short timeframe, raising suspicion of an effort to avoid Currency Transaction Report thresholds.",
-    "word_count": 62,
+    "text": "Regina Ramos (CUST_0137), a cartographer, engaged in suspicious activity characterized by structuring. Between 2025-07-24 and 2025-07-26, she made three cash deposits of $9,168.52, $9,402.73, and $9,547.22 at Branch_Southpark_Ave and Branch_Financial_District, totaling $28,118.47. This activity is inconsistent with her annual income of $129,672 and raises concerns due to the pattern of deposits just below the reporting threshold, indicating potential structuring under 31 USC 5324.",
+    "word_count": 63,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -108,11 +107,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has a medium risk rating and significant income. Pattern: Three cash deposits just below $10,000 within three days. Mapping: Evidence supports structuring, while other categories were ruled out. Risk: High due to repeated threshold avoidance. Decision: Classified as Structuring."
+      "reasoning": "Profile: Regina has a medium risk rating and an income of $129,672. Pattern: Three cash deposits between $9,000 and $10,000 totaling $28,118.47 indicate structuring. Mapping: This fits the structuring category, ruling out others. Risk: High due to significant cash deposits relative to income. Decision: Structuring is the most supported classification."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, suspicious cash deposit activity, timing, locations, and the rationale for suspicion consistent with structuring."
+      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, suspicious cash deposit activity, relevant dates, locations, and the rationale for suspicion consistent with structuring."
     }
   },
   "human_review": [
@@ -120,22 +119,22 @@
       "gate": "sar_drafting",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
+      "rationale": "High risk Structuring finding with confidence 0.90 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:08.903434+00:00"
+      "decided_at": "2026-10-11T18:02:23.503435+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (62 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:13.476072+00:00"
+      "decided_at": "2026-10-11T18:02:29.771984+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "08e7644c-2791-403d-be53-5f8532731b89",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "8e3e4a55-b744-4ae2-ad58-a6ea590b1f1d",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

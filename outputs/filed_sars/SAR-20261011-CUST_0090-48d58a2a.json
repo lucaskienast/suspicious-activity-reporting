@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0090-2ea2f4f5",
+    "sar_id": "SAR-20261011-CUST_0090-48d58a2a",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:31:15.395551+00:00",
+    "prepared_at": "2026-10-11T18:01:21.394740+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "3b77598e-0254-4752-bf14-a5ebb1cfbb24",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "cb9372ee-782b-4372-b47d-3836618766fa",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "286190567266235c62975e4ddad1d4ad653fb9ab0c336c0d40a3da92bf96caa8"
+    "document_checksum": "5734f399945f1dc4d1d274fb10ff2a92b47b10a81a8feb6a74ff644ca9e12783"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -98,8 +98,9 @@
       }
     ],
     "key_indicators": [
-      "4 cash deposits of $9,000-$10,000 from 2025-07-19 to 2025-07-22",
-      "Total cash deposits of $38,107.63 just under CTR threshold"
+      "4 cash deposits of $9,000-$10,000 totaling $38,107.63",
+      "Deposits made across 3 distinct locations",
+      "Deposits made within 4 days"
     ],
     "screening_signals": [
       "structuring",
@@ -108,8 +109,8 @@
     ]
   },
   "narrative": {
-    "text": "Brandon Reyes (CUST_0090), a banker, engaged in suspicious activity characterized by structuring. Between 2025-07-19 and 2025-07-22, he made four cash deposits totaling $38,107.63, each just under the CTR threshold of $10,000, at three different branches. This pattern of cash deposits is consistent with structuring under 31 USC 5324, indicating an attempt to evade reporting requirements. The total cash deposits reflect a high-risk behavior given his annual income of $54,731 and overall transaction volume of $153,932.03 during the review period.",
-    "word_count": 79,
+    "text": "Brandon Reyes (CUST_0090), a banker, engaged in suspicious activity characterized by structuring. Between July 19 and July 22, 2025, he made four cash deposits totaling $38,107.63, each ranging from $9,000 to $10,000, at Branch_Eastside_Center, Branch_Suburban_Center, and Branch_Airport_Terminal. This activity is inconsistent with his annual income of $54,731 and suggests an attempt to evade Currency Transaction Report requirements under 31 USC 5324.",
+    "word_count": 61,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -120,11 +121,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer is a banker with high transaction volume. Pattern: 4 cash deposits between $9,000 and $10,000 in 4 days. Mapping: Evidence supports structuring; no other typologies apply. Risk: High due to deliberate threshold avoidance. Decision: Structuring is the most applicable classification."
+      "reasoning": "Profile: Customer is a banker with an income of $54,731. Pattern: 4 cash deposits between $9,000 and $10,000 totaling $38,107.63 from July 19-22, 2025. Mapping: This indicates structuring to avoid CTR reporting. Risk: High due to significant cash activity relative to income. Decision: Structuring is the most applicable category."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, suspicious cash deposit activity, the timeframe, locations, and the rationale for classifying the activity as structuring."
+      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject, the suspicious cash deposit activity, the timeframe, specific branch locations, and the potential structuring to evade reporting requirements."
     }
   },
   "human_review": [
@@ -134,20 +135,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.90 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:10.159738+00:00"
+      "decided_at": "2026-10-11T18:01:15.003925+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (79 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (61 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:15.395163+00:00"
+      "decided_at": "2026-10-11T18:01:21.394277+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "3b77598e-0254-4752-bf14-a5ebb1cfbb24",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "cb9372ee-782b-4372-b47d-3836618766fa",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

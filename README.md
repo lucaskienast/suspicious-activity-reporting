@@ -52,7 +52,7 @@ This section documents the implemented system and every customisation beyond the
 
 | Module | Responsibility |
 |---|---|
-| `src/foundation_sar.py` | Pydantic schemas with business-rule validators, `ExplainabilityLogger` (JSONL audit trail) and `DataLoader` (per-customer cases from full CSV extracts) |
+| `src/foundation_sar.py` | Pydantic schemas with business-rule validators, `ExplainabilityLogger` (JSONL audit trail with input/output summaries stored as JSON objects) and `DataLoader` (per-customer cases from full CSV extracts) |
 | `src/risk_analyst_agent.py` | Chain-of-Thought Risk Analyst. A 5-step framework produces a validated `RiskAnalystOutput` |
 | `src/compliance_officer_agent.py` | ReACT Compliance Officer. A REASONING phase (THOUGHT 1-3) and an ACTION phase (draft → OBSERVATION → JSON) produce a ≤120-word SAR narrative |
 | `src/agent_utils.py` | Shared helpers: JSON extraction/repair, token accounting, and the pre-computed case activity summary used by both agents |
@@ -62,10 +62,12 @@ This section documents the implemented system and every customisation beyond the
 - **Schemas accept raw pandas records.** Empty CSV cells become `None`, and the int64 `ssn_last_4` column becomes a zero-padded string. Dates are strictly `YYYY-MM-DD`, `customer_since` cannot precede `date_of_birth`, and cases need at least one transaction and consistent account ownership.
 - **Grounded prompts.** Both agents receive pre-computed signals (near-threshold cash, CTR-reportable cash, busiest cash day, wire pass-through rate, closed-account activity), so the model interprets facts instead of doing arithmetic.
 - **LLM output is untrusted input.** JSON is extracted from prose or code fences, trailing commas are repaired, and formatting slips are normalised. Failures trigger a corrective retry that feeds the exact error back to the model. Every adjustment is written to the audit trail.
+- **Queryable audit trail.** `input_summary` and `output_summary` are native JSON objects, so every log works directly with `jq` or a SIEM, e.g. `jq -c 'select(.agent_type=="RiskAnalyst") | .output_summary | {classification, risk_level}' outputs/audit_logs/sar_workflow_*.jsonl`.
+- **Clear validation errors.** An invalid `risk_rating` (e.g. `"HIGHX"`) fails with a message naming the value and the accepted options, rather than being silently case-folded first.
 - **Policy rules in code.** Sanctions findings are always `Critical`. Every narrative cites 31 CFR 1020.320 (the SAR filing requirement).
 - **Narrative validation is the authoritative observation.** The model's own word counts proved unreliable, so the code enforces:
   - **Word limit:** narratives over 120 words are revised, then rejected.
-  - **Completeness:** the WHO/WHAT/WHEN/WHY elements, citations and no SSN, which can override `completeness_check`.
+  - **Completeness:** the WHO/WHAT/WHEN/WHERE/WHY elements, citations and no SSN, which can override `completeness_check`. WHERE must be *named*: a branch or jurisdiction recorded on the case's transactions, an account ID, or a specific channel (ATM, wire, ACH, online). "Across three locations" fails, and the OBSERVATION sent back lists the case's branches and accounts so the model can name them.
   - **Accuracy:** it flags dollar amounts not traceable to the case data, off-typology mentions and speculative language. Speculation and off-typology mentions are sent back for revision.
 - **Human-in-the-loop.**
   - **Gate 1** approves SAR drafting, so the Compliance Officer only runs on approved cases.
@@ -76,13 +78,13 @@ This section documents the implemented system and every customisation beyond the
 - **`src/test_scenarios.py` fixed.** It now matches the schemas (`transaction_date`, `method`, `case_created_at`/`data_sources`), and the compliance scenarios use real scenario cases.
 
 ### Results (latest live run, `gpt-4o-mini`)
-- **Risk Analyst:** 5/5 synthetic scenarios correct across all five categories, with risk levels matching in 5/5. In the workflow, classifications agree 100% with the screening typology.
-- **Compliance Officer:** 4/4 compliance scenarios pass. Workflow narratives are 100% complete, 100% within 120 words (66 on average), and checked for accuracy against the case data.
+- **Risk Analyst:** 5/5 synthetic scenarios correct across all five categories. In the workflow, classifications agree 95% with the screening typology.
+- **Compliance Officer:** 4/4 compliance scenarios pass. Workflow narratives are 100% complete, 100% within 120 words (64 on average), every filed narrative names its WHERE, and figures are checked against the case data.
 - **Workflow:**
-  - 119 customers screened → 25 alerts → 20 approved for drafting → 20 SARs filed.
-  - 5 alerts were closed at Gate 1 with a documented rationale.
-  - Cost was about $0.0018 per filed SAR, 81% less than running both agents on every customer.
-- **Tests:** `python -m pytest tests/` gives **46 passed**: the 30 provided tests, 13 workflow tests and 3 revision-loop tests.
+  - 119 customers screened → 25 alerts → 20 approved for drafting → 19 SARs filed.
+  - 5 alerts were closed at Gate 1, and 1 narrative was returned at Gate 2 (an amount not traceable to the case facts), each with a documented rationale.
+  - Cost was about $0.0020 per filed SAR, 81% less than running both agents on every customer.
+- **Tests:** `python -m pytest tests/` gives **64 passed**: the 30 provided tests, 13 workflow tests, 3 revision-loop tests and 18 review-fix tests.
 
 ### Running the workflow
 ```bash

@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0111-027a4a25",
+    "sar_id": "SAR-20261011-CUST_0111-e1844c39",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:31:34.044358+00:00",
+    "prepared_at": "2026-10-11T18:01:44.118437+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "d1bc714e-c059-4caa-a76b-a1b7f2b5acda",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "d8ac56cd-0663-4f40-9e06-e534d6bd2ade",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "6e6a15d00a8ad672faf9df268acf3ad2b42f26335e13aab4542bdd1d208e21f1"
+    "document_checksum": "ea59a8063fa61463dfdda0a3d6cdff8b8eebac1a85946b12ce8b437aa4c7a282"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -128,8 +128,9 @@
     ],
     "key_indicators": [
       "Incoming wire of $76,517.25 on 2025-07-29",
-      "Outgoing wires totaling $39,616.51 within 2 days",
-      "65% of incoming wire value sent out quickly"
+      "65% of incoming wire value sent out within 2 days",
+      "Multiple outgoing wires totaling $40,537.51",
+      "Total volume is 1.3x annual income"
     ],
     "screening_signals": [
       "rapid_movement",
@@ -137,8 +138,8 @@
     ]
   },
   "narrative": {
-    "text": "On July 29, 2025, Jacqueline Rodriguez (CUST_0111) received an incoming wire transfer of $76,517.25 to her business checking account (CUST_0111_ACC_1). Within two days, she executed outgoing wire transfers totaling $39,616.51, representing 65% of the incoming amount. The significant volume of transactions, totaling $386,834.91 over the review period, and the rapid pass-through of funds are consistent with potential money laundering under 18 USC 1956.",
-    "word_count": 63,
+    "text": "On July 29, 2025, Jacqueline Rodriguez (CUST_0111) received an incoming wire of $76,517.25 to her business checking account (CUST_0111_ACC_1). Within two days, she sent out multiple outgoing wires totaling $49,517.51 to four distinct counterparties. The total transaction volume during the period from February 5, 2025, to August 1, 2025, reached $386,834.91, which is 1.3 times her annual income. This pattern of large incoming funds followed by rapid outgoing transactions is consistent with potential money laundering under 18 USC 1956.",
+    "word_count": 79,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "18 USC 1956 (Money laundering)"
@@ -149,11 +150,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: High income, significant transaction volume. Pattern: Large incoming wire followed by rapid outgoing transfers. Mapping: Evidence supports money laundering; structuring ruled out. Risk: High due to significant amounts and rapid pass-through. Decision: Classified as Money_Laundering."
+      "reasoning": "Profile: Jacqueline has a high income and significant transaction volume. Pattern: Large incoming wire followed by rapid outgoing wires indicates potential laundering. Mapping: Evidence aligns with money laundering typology. Risk: High due to substantial amounts and rapid fund movement. Decision: Classify as Money_Laundering."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and amounts of transactions, the timing of the activity, the account involved, and the suspicious patterns observed, all aligning with money laundering typology."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the significant incoming and outgoing wire transactions, the timeframe, the account involved, and the suspicious nature of the activity consistent with money laundering."
     }
   },
   "human_review": [
@@ -163,20 +164,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:29.249728+00:00"
+      "decided_at": "2026-10-11T18:01:37.448718+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (79 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:34.043861+00:00"
+      "decided_at": "2026-10-11T18:01:44.118154+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "d1bc714e-c059-4caa-a76b-a1b7f2b5acda",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "d8ac56cd-0663-4f40-9e06-e534d6bd2ade",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

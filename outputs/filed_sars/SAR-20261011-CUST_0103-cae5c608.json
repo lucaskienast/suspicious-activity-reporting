@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0103-4dcd19db",
+    "sar_id": "SAR-20261011-CUST_0103-cae5c608",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:31:25.386948+00:00",
+    "prepared_at": "2026-10-11T18:01:31.420646+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "069e28c8-c150-4895-ac64-1c9ec12b8243",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "1377068d-fe7f-4d1c-b00a-3674e25e4f2c",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "36b375fc18c894fab42ab199e5f96263f1fb7aca9a2734a6f5c66405e6d77295"
+    "document_checksum": "5ab8cc2c91b31744e0e832fb01751daed393a44967a92ebbcd6ed4ce5a754553"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -109,9 +109,9 @@
       }
     ],
     "key_indicators": [
-      "$72,235.46 incoming wire followed by $58,427.88 outgoing in 2 days",
-      "81% of incoming wire value sent out quickly",
-      "4 distinct outgoing counterparties"
+      "Incoming wire of $72,235.46 on 2025-07-27",
+      "4 outgoing wires totaling $58,427.88 within 2 days",
+      "81% of incoming wire value sent out quickly"
     ],
     "screening_signals": [
       "rapid_movement",
@@ -120,8 +120,8 @@
     ]
   },
   "narrative": {
-    "text": "On July 27, 2025, Lisa Kennedy (CUST_0103), a pilot, received a wire transfer of $72,235.46 to her closed savings account (CUST_0103_ACC_1). Within two days, she initiated four outgoing wire transfers totaling $58,427.88 to four distinct counterparties. This rapid outflow, representing 81% of the incoming wire, is consistent with potential money laundering under 18 USC 1956, indicating a high-risk pattern relative to her annual income of $117,356.",
-    "word_count": 66,
+    "text": "On 2025-07-27, Lisa Kennedy (CUST_0103) received an incoming wire of $72,235.46 to her closed savings account (CUST_0103_ACC_1). Within two days, she initiated four outgoing wires totaling $58,427.88, representing 81% of the incoming wire value. The rapid transfer of funds and the high volume relative to her annual income of $117,356 raises suspicion of potential money laundering. This activity occurred between 2025-07-27 and 2025-07-29.",
+    "word_count": 63,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "18 USC 1956 (Money laundering)"
@@ -132,11 +132,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer is a pilot with high income. Pattern: $72,235.46 incoming wire followed by 4 outgoing wires totaling $58,427.88 within 2 days. Mapping: Rapid outflow indicates money laundering. Risk: High volume relative to income and pass-through activity. Decision: Classified as Money_Laundering."
+      "reasoning": "Profile: Customer is a pilot with a high income and closed account. Pattern: Large incoming wire followed by multiple outgoing wires, 81% pass-through. Mapping: Indicates potential money laundering. Risk: High volume relative to income. Decision: Classified as Money_Laundering."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and amounts of transactions, the timeframe, the account involved, and the suspicious nature of the rapid outflow consistent with money laundering."
+      "narrative_reasoning": "The narrative details the suspicious activity of Lisa Kennedy, including the amounts and timing of transactions, highlighting the rapid pass-through of funds and the high volume relative to her income, consistent with money laundering."
     }
   },
   "human_review": [
@@ -146,20 +146,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Money_Laundering finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:20.687534+00:00"
+      "decided_at": "2026-10-11T18:01:25.960658+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (66 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (63 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:31:25.386586+00:00"
+      "decided_at": "2026-10-11T18:01:31.420196+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "069e28c8-c150-4895-ac64-1c9ec12b8243",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "1377068d-fe7f-4d1c-b00a-3674e25e4f2c",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

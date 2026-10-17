@@ -24,7 +24,6 @@ Human review gates run in one of two modes:
   source, so simulated decisions are never mistaken for human ones.
 """
 
-import ast
 import hashlib
 import json
 import os
@@ -724,13 +723,10 @@ class SARWorkflow:
 DEFAULT_PRICING = {'prompt_tokens': 0.15, 'completion_tokens': 0.60}
 
 
-def _parse_summary(entry: Dict[str, Any]) -> Dict[str, Any]:
-    """Audit entries store output data as a Python-literal string"""
-    try:
-        value = ast.literal_eval(entry['output_summary'])
-        return value if isinstance(value, dict) else {}
-    except (ValueError, SyntaxError):
-        return {}
+def _output_summary(entry: Dict[str, Any]) -> Dict[str, Any]:
+    """The output data recorded in an audit entry (a JSON object)"""
+    value = entry.get('output_summary')
+    return value if isinstance(value, dict) else {}
 
 
 def compute_workflow_metrics(records: List[CaseRecord], audit_entries: List[Dict[str, Any]],
@@ -753,7 +749,7 @@ def compute_workflow_metrics(records: List[CaseRecord], audit_entries: List[Dict
     for entry in audit_entries:
         if entry['agent_type'] not in ('RiskAnalyst', 'ComplianceOfficer'):
             continue
-        details = _parse_summary(entry)
+        details = _output_summary(entry)
         usage = details.get('token_usage', {})
         stage = stages.setdefault(entry['agent_type'], {'runs': 0, 'api_calls': 0, 'prompt_tokens': 0,
                                                         'completion_tokens': 0, 'latency_ms': 0.0})

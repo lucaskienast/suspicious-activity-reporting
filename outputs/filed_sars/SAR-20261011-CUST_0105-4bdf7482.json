@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0105-16c3a478",
+    "sar_id": "SAR-20261011-CUST_0105-4bdf7482",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:33:28.842657+00:00",
+    "prepared_at": "2026-10-11T18:03:52.747155+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "09501f94-2a70-4ff8-a752-af9b1f054972",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "e9106a99-23a8-4dca-8876-c87455b55997",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "4ecb2a8012cd03b82e33770e43106a0258e4e56e57a1f58a83c8cf9d2c11262f"
+    "document_checksum": "b15e8c87c40b93c361336b97fa74247b33c7d808ff40466edf1c46cd1d7b075a"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -129,9 +129,9 @@
       }
     ],
     "key_indicators": [
-      "4 cash transactions on 2025-08-01 totaling $21,344.31",
-      "3 cash deposits just under $10,000",
-      "3 transactions with contradictory descriptions"
+      "Busiest cash day with $11,996.70 in deposits and withdrawals",
+      "3 cash deposits on August 1 totaling $11,996.70",
+      "Contradictory descriptions for 3 transactions"
     ],
     "screening_signals": [
       "cash_velocity",
@@ -139,8 +139,8 @@
     ]
   },
   "narrative": {
-    "text": "Steven Howard (CUST_0105), an engineer, was observed engaging in suspicious activity consistent with structuring under 31 USC 5324. Between 2025-02-07 and 2025-08-02, he conducted 52 transactions totaling $138,409.41, including four cash transactions on 2025-08-01 totaling $21,344.31. Notably, he made three cash deposits just under $10,000, raising concerns given his annual income of $110,415. The activity occurred across multiple branches, indicating potential efforts to evade reporting requirements.",
-    "word_count": 66,
+    "text": "Steven Howard (CUST_0105), an engineer, engaged in structuring by making three cash deposits totaling $11,996.70 on August 1, 2025, at Branch_Suburban_Center and Branch_Airport_Terminal. This activity is suspicious due to the aggregate amount exceeding $10,000, which is consistent with attempts to evade reporting requirements under 31 USC 5324. Over the period from February 7 to August 2, 2025, Howard conducted 52 transactions totaling $138,409.41, with significant cash activity inconsistent with his annual income of $110,415.",
+    "word_count": 74,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -151,11 +151,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has a high income but significant cash activity. Pattern: Multiple cash deposits just under $10,000 and a peak day with 4 cash transactions exceeding $10,000. Mapping: Evidence aligns with Structuring regulations. Risk: High volume of cash activity relative to income. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Customer has a high volume of cash activity inconsistent with income. Pattern: Multiple cash transactions on August 1 exceed $10,000, indicating structuring. Mapping: Evidence supports structuring under 31 U.S.C. 5324. Risk: High due to significant cash activity. Decision: Structuring is the most supported category."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the nature and volume of transactions, the timeframe, locations involved, and the suspicious indicators that align with structuring regulations."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious activity of structuring through cash deposits, the specific date and locations of the transactions, and the rationale for suspicion based on income inconsistency."
     }
   },
   "human_review": [
@@ -165,20 +165,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:33:23.802487+00:00"
+      "decided_at": "2026-10-11T18:03:45.185206+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (66 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (74 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:33:28.842207+00:00"
+      "decided_at": "2026-10-11T18:03:52.746770+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "09501f94-2a70-4ff8-a752-af9b1f054972",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "e9106a99-23a8-4dca-8876-c87455b55997",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

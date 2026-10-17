@@ -208,7 +208,7 @@ class TestMetrics:
         rejected_flow, _, _ = build_workflow(tmp_path, logger, risk_output(risk_level='Low'))
         records = [process(filed_flow, data, screening, 'CUST_0053'),
                    process(rejected_flow, data, screening, 'CUST_0062')]
-        usage = "{'attempts': 1, 'token_usage': {'prompt_tokens': 3000, 'completion_tokens': 500}}"
+        usage = {'attempts': 1, 'token_usage': {'prompt_tokens': 3000, 'completion_tokens': 500}}
         audit = [{'agent_type': 'RiskAnalyst', 'output_summary': usage, 'execution_time_ms': 4000.0}] * 2 + \
                 [{'agent_type': 'ComplianceOfficer', 'output_summary': usage, 'execution_time_ms': 5000.0}]
 

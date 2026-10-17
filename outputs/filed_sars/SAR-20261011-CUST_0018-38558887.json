@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0018-ccd33e98",
+    "sar_id": "SAR-20261011-CUST_0018-38558887",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:30:32.611086+00:00",
+    "prepared_at": "2026-10-11T18:00:13.830984+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "5bba1678-c7bb-471b-911c-2359891537da",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "b18741b3-9a5e-4e51-9394-d5ff8e02be7d",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "8bca79d271811265addc88ce7575f257c0e5004ef77194d4d85a7e38029af66c"
+    "document_checksum": "b1b9cddb494d4afeaa2389b58ee07af7fb491e7a57bc8e03f89ee72b0873ac0b"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -108,7 +108,8 @@
     ],
     "key_indicators": [
       "4 cash deposits of $9,000-$9,576.59 across 4 days",
-      "Total cash deposits of $37,536.45"
+      "Total cash deposits of $37,536.45 just under CTR threshold",
+      "4 transactions posted to a closed account"
     ],
     "screening_signals": [
       "structuring",
@@ -117,8 +118,8 @@
     ]
   },
   "narrative": {
-    "text": "Tanya Johnston (CUST_0018), a therapist, engaged in suspicious activity characterized by structuring. Between 2025-07-22 and 2025-07-25, she made four cash deposits totaling $37,536.45 at various branches of CUST_0018_ACC_2, each ranging from $9,000 to $9,576.59. This pattern of cash deposits is consistent with attempts to evade reporting requirements under 31 USC 5324, given her high income and the volume of transactions.",
-    "word_count": 60,
+    "text": "Tanya Johnston (CUST_0018), a therapist, engaged in suspicious activity characterized by structuring to evade Currency Transaction Report requirements under 31 USC 5324. Between 2025-07-22 and 2025-07-25, she made four cash deposits totaling $37,536.45, with individual amounts ranging from $9,154.34 to $9,576.59, at Branch_Westside_Plaza, Branch_Downtown_Main, and Branch_Eastside_Center. The total was just under the CTR threshold, and four transactions were posted to a closed account, indicating a deliberate attempt to avoid reporting.",
+    "word_count": 70,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
@@ -129,11 +130,11 @@
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Tanya has a high income and significant transaction volume. Pattern: 4 cash deposits between $9,000-$10,000 in 4 days indicate structuring. Mapping: Evidence aligns with structuring regulations. Risk: High due to repeated threshold avoidance. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Customer has high income and activity. Pattern: 4 cash deposits between $9,000-$10,000 totaling $37,536.45 in 4 days. Mapping: Evidence supports structuring to evade CTR. Risk: High due to significant amounts and customer risk rating. Decision: Structuring is the most supported category."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the timeframe, the account involved, and the reasoning behind the suspicion of structuring."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activity, the timeframe, specific branch locations, and the rationale for suspicion based on structuring to evade CTR requirements."
     }
   },
   "human_review": [
@@ -143,20 +144,20 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:30:27.819744+00:00"
+      "decided_at": "2026-10-11T18:00:05.596544+00:00"
     },
     {
       "gate": "sar_filing",
       "decision": "approve",
       "reviewer_id": "compliance_reviewer_01",
-      "rationale": "Narrative complete (60 words, 2 citations) with no accuracy concerns",
+      "rationale": "Narrative complete (70 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:30:32.610726+00:00"
+      "decided_at": "2026-10-11T18:00:13.830676+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "5bba1678-c7bb-471b-911c-2359891537da",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "b18741b3-9a5e-4e51-9394-d5ff8e02be7d",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",

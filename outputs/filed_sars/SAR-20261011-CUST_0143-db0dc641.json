@@ -1,17 +1,17 @@
 {
   "sar_metadata": {
-    "sar_id": "SAR-20261011-CUST_0143-5a3e5752",
+    "sar_id": "SAR-20261011-CUST_0143-db0dc641",
     "filing_type": "Initial report",
     "form": "FinCEN Suspicious Activity Report (simulated)",
-    "prepared_at": "2026-10-11T12:32:53.878592+00:00",
+    "prepared_at": "2026-10-11T18:03:13.379454+00:00",
     "detection_date": "2026-10-11",
     "filing_deadline": "2026-11-10",
     "status": "approved_for_filing",
-    "case_id": "5f483185-fd78-4b3e-95ac-e8329b1307f1",
-    "workflow_run_id": "20261011_133024",
+    "case_id": "dea112f3-d5a7-4759-9467-51d134944172",
+    "workflow_run_id": "20261011_190000",
     "ai_generated": true,
     "schema_version": "1.0",
-    "document_checksum": "af18081ea35b67f9961b56bcc0a4fd52189050b21293677954b4ab3619ea80cc"
+    "document_checksum": "ea619725eb25288655fc820676b602970999de93e97ff32eeedfbbd3c206a67f"
   },
   "filing_institution": {
     "name": "Demo Community Bank (simulated institution)",
@@ -107,9 +107,9 @@
       }
     ],
     "key_indicators": [
-      "3 cash deposits totaling $17,038.47",
-      "2 cash transactions on 2025-08-01 totaling $14,987.45",
-      "5 transactions with contradictory descriptions"
+      "2 cash deposits of $7,032.60 and $5,836.49 on 2025-08-01",
+      "Total cash deposits of $17,038.47 across 3 transactions",
+      "6 cash/ATM transactions totaling $32,850.79"
     ],
     "screening_signals": [
       "cash_velocity",
@@ -118,25 +118,23 @@
     ]
   },
   "narrative": {
-    "text": "Andre Rodriguez (CUST_0143), a ship broker, exhibited suspicious activity consistent with structuring under 31 USC 5324. Between February 3, 2025, and August 3, 2025, he conducted 68 transactions totaling $171,150.38, including three cash deposits amounting to $17,038.47. Notably, on August 1, 2025, he made two cash transactions totaling $14,987.45, exceeding the $10,000 reporting threshold. Additionally, five transactions had contradictory descriptions, indicating potential attempts to evade reporting requirements.",
+    "text": "Andre Rodriguez (CUST_0143), a ship broker, engaged in structuring by making multiple cash deposits totaling $17,038.47 just under the CTR threshold on 2025-08-01 and 2025-08-02 at Branch_Westside_Plaza and Branch_Northgate_Mall. His cash/ATM transactions totaled $32,850.79, with an overall transaction volume of $171,150.38, significantly exceeding his annual income of $62,318. This pattern of activity is consistent with structuring under 31 USC 5324, indicating an attempt to evade reporting requirements.",
     "word_count": 67,
     "regulatory_citations": [
       "31 CFR 1020.320 (SAR filing requirement)",
       "31 USC 5324 (Structuring)"
     ],
     "completeness_check": true,
-    "validation_warnings": [
-      "WHERE element not identified (branch, channel, account or jurisdiction)"
-    ]
+    "validation_warnings": []
   },
   "ai_analysis": {
     "risk_analyst": {
       "method": "Chain-of-Thought",
-      "reasoning": "Profile: Customer has a medium risk rating and significant cash activity. Pattern: Cash deposits on August 1 exceed $10,000 and suggest structuring. Mapping: Activity aligns with structuring regulations. Risk: High due to cash amounts relative to income. Decision: Structuring is the most supported category."
+      "reasoning": "Profile: Customer has a medium risk rating and significant cash activity. Pattern: Multiple cash deposits just under CTR threshold. Mapping: Evidence supports Structuring; Fraud and Money Laundering ruled out. Risk: High volume of cash transactions inconsistent with income. Decision: Classified as Structuring."
     },
     "compliance_officer": {
       "method": "ReACT",
-      "narrative_reasoning": "The narrative was constructed based on the Risk Analyst's findings, detailing the subject's identity, suspicious cash activity, transaction totals, and the timeframe, aligning with structuring regulations."
+      "narrative_reasoning": "The narrative was constructed by detailing the subject's identity, the suspicious cash deposit activities, the specific dates and locations, and the rationale for classifying the activity as structuring."
     }
   },
   "human_review": [
@@ -146,7 +144,7 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "High risk Structuring finding with confidence 0.85 meets escalation criteria",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:46.654349+00:00"
+      "decided_at": "2026-10-11T18:03:07.102708+00:00"
     },
     {
       "gate": "sar_filing",
@@ -154,12 +152,12 @@
       "reviewer_id": "compliance_reviewer_01",
       "rationale": "Narrative complete (67 words, 2 citations) with no accuracy concerns",
       "decision_source": "simulated_policy",
-      "decided_at": "2026-10-11T12:32:53.878163+00:00"
+      "decided_at": "2026-10-11T18:03:13.378978+00:00"
     }
   ],
   "audit_trail": {
-    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_133024.jsonl",
-    "case_id": "5f483185-fd78-4b3e-95ac-e8329b1307f1",
+    "audit_log_file": "/Users/maxlucaskienast/Desktop/Education/AI/Agentic_AI/Agentic_AI_Finance_Udacity/1_Prompting/cd14685-fin-serv-agentic-c1-classroom/project/starter/outputs/audit_logs/sar_workflow_20261011_190000.jsonl",
+    "case_id": "dea112f3-d5a7-4759-9467-51d134944172",
     "data_sources": {
       "customer_source": "csv_extract_20261011",
       "account_source": "csv_extract_20261011",
